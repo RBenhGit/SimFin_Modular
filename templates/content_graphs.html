@@ -1,0 +1,68 @@
+{% if current_ticker %}
+    <p>גרפים ({{ graph_type }}) עבור הטיקר: <strong>{{ current_ticker }}</strong>.</p>
+    
+    <div id="debug_messages">
+        {% if data_error_message %}
+            <div class="alert alert-danger mt-3">שגיאת נתונים: {{ data_error_message }}</div>
+        {% endif %}
+        {% if data_info_message %}
+            <div class="alert alert-info mt-3">הודעת מידע: {{ data_info_message }}</div>
+        {% endif %}
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-lg-6 mb-4" style="border: 1px solid lightgray; padding: 5px;">
+            <h5>גרף הכנסות</h5>
+            <div id="revenueGraphDiv" style="height:450px; width:100%;"></div>
+        </div>
+        <div class="col-lg-6 mb-4" style="border: 1px solid lightgray; padding: 5px;">
+            <h5>גרף רווח נקי</h5>
+            <div id="netIncomeGraphDiv" style="height:450px; width:100%;"></div>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        function renderPlotlyChart(divId, jsonDataString, chartName) {
+            const chartDiv = document.getElementById(divId);
+            if (!chartDiv) {
+                console.error("Chart DIV not found: " + divId);
+                return;
+            }
+
+            if (jsonDataString && jsonDataString !== 'None' && jsonDataString.trim() !== '') {
+                try {
+                    var chartData = JSON.parse(jsonDataString);
+                    
+                    if (chartData && chartData.data && chartData.layout) {
+                        Plotly.newPlot(divId, chartData.data, chartData.layout, {responsive: true});
+                    } else if (chartData && chartData.error) {
+                        chartDiv.innerHTML = "<p class='text-danger'>Error in chart data for " + chartName + ": " + chartData.error + "</p>";
+                        console.error("Error in chart data for " + chartName + ":", chartData.error);
+                    } else {
+                        chartDiv.innerHTML = "<p class='text-secondary'>" + chartName + " - No valid chart data structure.</p>";
+                    }
+                } catch (e) {
+                    chartDiv.innerHTML = "<p class='text-danger'>Error parsing JSON or plotting " + chartName + ": " + e.message + "</p>";
+                    console.error("Error parsing JSON or plotting " + chartName + ":", e);
+                }
+            } else {
+                chartDiv.innerHTML = "<p class='text-secondary'>" + chartName + " - נתונים לא זמינים.</p>";
+            }
+        }
+
+        {% if graph_revenue_json %}
+            renderPlotlyChart('revenueGraphDiv', {{ graph_revenue_json | tojson | safe }}, 'Revenue Graph');
+        {% else %}
+            renderPlotlyChart('revenueGraphDiv', null, 'Revenue Graph');
+        {% endif %}
+        
+        {% if graph_net_income_json %}
+            renderPlotlyChart('netIncomeGraphDiv', {{ graph_net_income_json | tojson | safe }}, 'Net Income Graph');
+        {% else %}
+            renderPlotlyChart('netIncomeGraphDiv', null, 'Net Income Graph');
+        {% endif %}
+    </script>
+
+{% else %}
+    <p class="text-warning">אנא בחר טיקר תחילה כדי לראות גרפים.</p>
+{% endif %}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }} - SimFin Analyzer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+
+    <style>
+        body {
+            display: flex;
+            padding-top: 70px; /* הגדלתי קצת את הריווח מה-navbar העליון */
+            background-color: #f4f7f6; /* צבע רקע כללי עדין לדף */
+        }
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            background: #ffffff; /* רקע לבן לתפריט */
+            color: #333; /* צבע טקסט כהה יותר */
+            transition: all 0.3s;
+            height: calc(100vh - 56px); 
+            position: fixed; 
+            top: 56px; 
+            right: 0; 
+            padding-top: 15px; /* ריווח פנימי עליון */
+            overflow-y: auto; 
+            border-left: 1px solid #ddd; /* קו הפרדה עדין */
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* צל קל לתפריט */
+        }
+        #sidebar .sidebar-header {
+            padding: 15px;
+            background: #007bff; /* רקע כחול לכותרת התפריט */
+            color: white;
+            border-bottom: 1px solid #0056b3;
+        }
+        #sidebar .sidebar-header h4 {
+            margin-bottom: 0;
+        }
+        #sidebar .nav-link {
+            padding: 12px 20px; /* ריווח פנימי לקישורים */
+            font-size: 1.0em; 
+            display: block;
+            color: #555; /* צבע טקסט קצת יותר בהיר */
+            border-bottom: 1px solid #f0f0f0;
+        }
+        #sidebar .nav-link:last-child { border-bottom: none; }
+        #sidebar .nav-link:hover, #sidebar .nav-link.active:hover {
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+        }
+        #sidebar .nav-link.active {
+            background-color: #0069d9; /* כחול קצת יותר כהה לאקטיבי */
+            color: white;
+            font-weight: 500;
+        }
+        #content {
+            width: calc(100% - 250px); 
+            padding: 25px; /* ריווח פנימי גדול יותר לתוכן */
+            min-height: calc(100vh - 56px);
+            transition: all 0.3s;
+            margin-right: 250px; 
+            overflow-y: auto; 
+        }
+        .top-bar-fixed { 
+            background-color: #fff; /* רקע לבן לבר העליון */
+            padding: .5rem 1rem;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* צל קל */
+            position: fixed;
+            top: 0;
+            right: 0; 
+            left: 0; 
+            z-index: 1030; 
+            display: flex; 
+            justify-content: flex-end; 
+        }
+        .plotly-graph-div { /* ודא שהגרפים מקבלים גובה אם הוא לא מוגדר ישירות ב-HTML */
+            min-height: 400px; 
+        }
+        .flashes {
+            list-style: none;
+            padding-left: 0;
+        }
+        .flashes .success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .flashes .danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .flashes .warning {
+            color: #856404;
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .flashes .info {
+            color: #0c5460;
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar-fixed">
+        <form method="POST" action="{{ url_for('home.route_set_ticker') }}" class="form-inline">
+            <div class="form-group mx-sm-3 mb-2 mb-sm-0">
+                <label for="ticker_input" class="sr-only">הזן טיקר</label>
+                <input type="text" class="form-control form-control-sm" id="ticker_input" name="ticker_input" placeholder="טיקר (לדוגמה: AAPL)" value="{{ current_ticker if current_ticker }}">
+            </div>
+            <button type="submit" class="btn btn-success btn-sm mb-2 mb-sm-0">בחר מניה והורד נתונים</button>
+        </form>
+    </div>
+
+    <nav id="sidebar">
+        <div class="sidebar-header text-center">
+            <h4>SimFin Analyzer</h4>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link {% if request.endpoint == 'home.route_home' %}active{% endif %}" href="{{ url_for('home.route_home') }}">דף הבית</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.endpoint == 'graphs.route_graphs_annual' %}active{% endif %}" href="{{ url_for('graphs.route_graphs_annual') }}">גרפים שנתיים</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.endpoint == 'graphs.route_graphs_quarterly' %}active{% endif %}" href="{{ url_for('graphs.route_graphs_quarterly') }}">גרפים רבעוניים</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.endpoint == 'valuations.route_valuations' %}active{% endif %}" href="{{ url_for('valuations.route_valuations') }}">הערכות שווי</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#apiKeyModal">עדכון מפתח API</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <h2 class="mt-4">{{ page_title }}</h2>
+        {% if content_template %}
+            {% include content_template %}
+        {% else %}
+            <p>תוכן הדף יופיע כאן.</p>
+        {% endif %}
+    </div>
+
+    <div class="modal fade" id="apiKeyModal" tabindex="-1" role="dialog" aria-labelledby="apiKeyModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="POST" action="{{ url_for('home.route_update_api_key_action') }}">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="apiKeyModalLabel">עדכון מפתח API של SimFin</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="סגור" style="margin-left: 0; margin-right: auto;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>סטטוס מפתח נוכחי: <strong>{{ api_key_status_display }}</strong></p>
+                        <div class="form-group">
+                            <label for="api_key_input_modal">הזן מפתח API חדש:</label>
+                            <input type="text" class="form-control" id="api_key_input_modal" name="api_key_input_modal" placeholder="הכנס מפתח API או השאר ריק">
+                            <small class="form-text text-muted">השאר ריק ולחץ "שמור" כדי למחוק את המפתח מהקובץ ולחזור לשימוש ב-'free'.</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ביטול</button>
+                        <button type="submit" class="btn btn-primary">שמור מפתח</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
