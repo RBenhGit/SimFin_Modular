@@ -30,12 +30,42 @@ def route_home():
 
     if current_ticker:
         try:
-            df_prices = download_price_history_with_mavg(
-                current_ticker, period="10y", interval="1d", moving_averages=MOVING_AVERAGES_CONFIG
+            # הורד 2 שנים של נתונים
+            df_prices_full = download_price_history_with_mavg(
+                current_ticker,
+                period="2y",  # Changed from 5y to 2y
+                interval="1d",
+                moving_averages=MOVING_AVERAGES_CONFIG
             )
-            if df_prices is not None and not df_prices.empty:
-                ma_cols_to_plot = [f'MA{ma}' for ma in MOVING_AVERAGES_CONFIG if f'MA{ma}' in df_prices.columns]
-                chart_data = create_candlestick_chart_with_mavg(df_prices, current_ticker, ma_cols_to_plot)
+
+            if df_prices_full is not None and not df_prices_full.empty:
+                # הצג רק את השנה האחרונה כברירת מחדל
+                # ודא שהאינדקס הוא datetime
+                if not isinstance(df_prices_full.index, pd.DatetimeIndex):
+                    # נסה להמיר אם זה לא אינדקס תאריכים, או טפל בשגיאה אם ההמרה נכשלת
+                    # בהנחה ש-download_price_history_with_mavg אמור להחזיר אינדקס תאריכים
+                    logger.warning(f"Price data for {current_ticker} does not have a DatetimeIndex. Chart may be incorrect.")
+                    df_prices_display = df_prices_full # השתמש בכל הנתונים אם האינדקס לא תקין לסינון
+                else:
+                    # הנחה שהאינדקס כבר מודע ל-timezone או שהוא naive ויש להתייחס אליו בהתאם
+                    # אם האינדקס הוא timezone-naive, pd.Timestamp.now() יהיה timezone-naive.
+                    # אם האינדקס הוא timezone-aware, pd.Timestamp.now(tz=df_prices_full.index.tz) עדיף.
+                    now_timestamp = pd.Timestamp.now()
+                    if df_prices_full.index.tz is not None:
+                        now_timestamp = now_timestamp.tz_localize(df_prices_full.index.tz) # אם now הוא naive והאינדקס aware
+                    elif now_timestamp.tz is not None and df_prices_full.index.tz is None:
+                        # זה מקרה פחות סביר אם yfinance מחזיר naive
+                        now_timestamp = now_timestamp.tz_convert(None) 
+                        
+                    one_year_ago = now_timestamp - pd.DateOffset(years=1)
+                    df_prices_display = df_prices_full[df_prices_full.index >= one_year_ago]
+                    if df_prices_display.empty:
+                        logger.warning(f"No data found for {current_ticker} in the last year, displaying all downloaded 2-year data.")
+                        df_prices_display = df_prices_full # חזור לכל הנתונים אם הסינון הותיר DataFrame ריק
+                
+                ma_cols_to_plot = [f'MA{ma}' for ma in MOVING_AVERAGES_CONFIG if f'MA{ma}' in df_prices_display.columns]
+                chart_data = create_candlestick_chart_with_mavg(df_prices_display, current_ticker, ma_cols_to_plot)
+                
                 if chart_data and "error" not in chart_data:
                     chart_json = json.dumps(chart_data, cls=plotly.utils.PlotlyJSONEncoder)
                 elif chart_data and "error" in chart_data:

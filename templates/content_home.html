@@ -10,7 +10,7 @@
                 {# Container for the chart and fullscreen button #}
                 <div id="candlestickChartContainer" style="position: relative;">
                     <button id="fullscreenBtn" class="btn btn-sm btn-outline-secondary mb-1"
-                            style="position: absolute; top: 0px; right: 0px; z-index: 10;">
+                            style="position: absolute; top: 0px; left: 0px; z-index: 10;">
                         מסך מלא
                     </button>
                     <div id="candlestickChartDiv" style="width: 100%; height: 75vh;"></div> {# גובה התחלתי יחסי #}
@@ -29,10 +29,22 @@
             var plotlyConfig = {
                 responsive: true,
                 scrollZoom: true,    // Enable mousewheel zoom on the chart itself
-                displayModeBar: true, // Show Plotly's mode bar (for zoom, pan tools etc.)
-                // We can remove default plotly zoom buttons if dragmode='pan' is enough
-                // and scrollZoom is active. Or customize it further.
-                // modeBarButtonsToRemove: ['zoom2d', 'select2d', 'lasso2d']
+                displayModeBar: true, // Show Plotly's mode bar
+                // Specify buttons to keep: pan, zoom in/out, autoscale, reset, download chart
+                // 'toImage' is the button for downloading as PNG.
+                // 'resetScale2d' can be useful for resetting both axes.
+                modeBarButtons: [[
+                    'zoomIn2d', 'zoomOut2d', 
+                    'autoScale2d', 'resetScale2d',
+                    'pan2d', 
+                    'toImage' 
+                    // Consider adding 'select2d', 'lasso2d' if selection is needed
+                    // 'hoverClosestCartesian', 'hoverCompareCartesian' are for hover interactions
+                ]],
+                // Explicitly set dragmode if needed, 'pan' is good for navigation
+                // if Plotly's default isn't pan with the above buttons.
+                // dragmode: 'pan', 
+                displaylogo: false // Hide the Plotly logo
             };
 
             function renderAndSetupCandlestick() {

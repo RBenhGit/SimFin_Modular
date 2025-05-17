@@ -161,6 +161,7 @@ def create_candlestick_chart_with_mavg(df_prices, ticker_symbol, moving_averages
         fig.update_yaxes(
             showgrid=True, gridwidth=1, gridcolor='LightGrey',
             showline=True, linewidth=1, linecolor='black', mirror=True,
+            fixedrange=False,  # Explicitly set fixedrange to false for y-axis
             # tickprefix="$" # Uncomment if prices are in USD
         )
         
