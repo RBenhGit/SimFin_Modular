@@ -1,46 +1,148 @@
 {% if current_ticker %}
-    <h4 class="mt-4">גרף נרות יומי עבור {{ current_ticker }} (שנה אחרונה)</h4>
+    {# כותרת נפרדת פחות נחוצה אם הכותרת בגרף מספיקה #}
+    {# <h4 class="mt-4 text-center">גרף נרות יומי עבור {{ current_ticker }}</h4> #}
+
     {% if price_data_error %}
-        <div class="alert alert-warning">{{ price_data_error }}</div>
+        <div class="alert alert-warning mt-3">{{ price_data_error }}</div>
     {% elif candlestick_chart_json %}
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-md-12">
-                <div id="candlestickChartDiv"></div>
+                {# Container for the chart and fullscreen button #}
+                <div id="candlestickChartContainer" style="position: relative;">
+                    <button id="fullscreenBtn" class="btn btn-sm btn-outline-secondary mb-1"
+                            style="position: absolute; top: 0px; right: 0px; z-index: 10;">
+                        מסך מלא
+                    </button>
+                    <div id="candlestickChartDiv" style="width: 100%; height: 75vh;"></div> {# גובה התחלתי יחסי #}
+                </div>
             </div>
         </div>
+
         <script type="text/javascript">
             var candlestickData = {{ candlestick_chart_json | safe }};
-            if (candlestickData && candlestickData.data && candlestickData.layout) {
-                Plotly.newPlot('candlestickChartDiv', candlestickData.data, candlestickData.layout, {responsive: true});
-            } else if (candlestickData && candlestickData.error) {
-                document.getElementById('candlestickChartDiv').innerHTML = "<p class='text-danger'>" + candlestickData.error + "</p>";
-                console.error("Candlestick chart error:", candlestickData.error);
-            } else {
-                document.getElementById('candlestickChartDiv').innerHTML = "<p class='text-secondary'>גרף נרות לא זמין או אין נתונים.</p>";
+            var chartDiv = document.getElementById('candlestickChartDiv');
+            var chartContainer = document.getElementById('candlestickChartContainer');
+            var fullscreenBtn = document.getElementById('fullscreenBtn');
+            var isChartFullscreen = false; // Variable to track fullscreen state
+            var originalChartHeight = '75vh'; // Store initial height
+
+            var plotlyConfig = {
+                responsive: true,
+                scrollZoom: true,    // Enable mousewheel zoom on the chart itself
+                displayModeBar: true, // Show Plotly's mode bar (for zoom, pan tools etc.)
+                // We can remove default plotly zoom buttons if dragmode='pan' is enough
+                // and scrollZoom is active. Or customize it further.
+                // modeBarButtonsToRemove: ['zoom2d', 'select2d', 'lasso2d']
+            };
+
+            function renderAndSetupCandlestick() {
+                if (candlestickData && candlestickData.data && candlestickData.layout) {
+                    // Update chart height from layout if provided, otherwise use default
+                    if (candlestickData.layout && candlestickData.layout.height) {
+                        chartDiv.style.height = candlestickData.layout.height + 'px';
+                        originalChartHeight = chartDiv.style.height;
+                    } else {
+                        chartDiv.style.height = originalChartHeight;
+                    }
+
+                    Plotly.newPlot('candlestickChartDiv', candlestickData.data, candlestickData.layout, plotlyConfig)
+                        .then(function(gd) {
+                            // Optional: Add listener for wheel event to prevent page scroll IF Plotly's scrollZoom isn't enough
+                            // chartDiv.addEventListener('wheel', function(event) {
+                            //     if (chartDiv.contains(event.target)) {
+                            //         // Check if Plotly is handling the zoom, or if we need to prevent page scroll
+                            //         // For now, assume Plotly's scrollZoom handles it well.
+                            //         // If page still scrolls, uncomment:
+                            //         // event.preventDefault();
+                            //     }
+                            // }, { passive: true }); // Try true first, then false if preventDefault is needed
+                            console.log("Candlestick chart rendered.");
+                        });
+                } else if (candlestickData && candlestickData.error) {
+                    chartDiv.innerHTML = "<p class='text-danger'>" + candlestickData.error + "</p>";
+                    console.error("Candlestick chart error:", candlestickData.error);
+                } else {
+                    chartDiv.innerHTML = "<p class='text-secondary'>גרף נרות לא זמין או אין נתונים.</p>";
+                }
             }
+
+            function resizePlotlyChart() {
+                // Check if the chart div and plotly data exist
+                var currentChartDiv = document.getElementById('candlestickChartDiv');
+                if (currentChartDiv && currentChartDiv.data) { // currentChartDiv.data is a Plotly specific check
+                    Plotly.Plots.resize(currentChartDiv);
+                    console.log("Plotly chart resized.");
+                } else {
+                    console.log("Plotly chart div or data not found for resize.");
+                }
+            }
+            
+            if (fullscreenBtn && chartContainer) {
+                fullscreenBtn.addEventListener('click', function() {
+                    isChartFullscreen = !isChartFullscreen;
+                    if (isChartFullscreen) {
+                        originalChartHeight = chartDiv.style.height; // Save current height before going fullscreen
+                        
+                        chartContainer.classList.add('simfin-fullscreen-chart');
+                        document.body.style.overflow = 'hidden'; // Prevent body scroll
+                        fullscreenBtn.textContent = 'צא ממסך מלא';
+                        // Add a close button dynamically inside the fullscreen container
+                        let closeBtn = document.createElement('button');
+                        closeBtn.innerHTML = '&times;';
+                        closeBtn.classList.add('btn', 'btn-sm', 'btn-danger');
+                        closeBtn.style.position = 'absolute';
+                        closeBtn.style.top = '10px';
+                        closeBtn.style.left = '10px'; // Changed to left for RTL consistency with close buttons
+                        closeBtn.style.zIndex = '2001'; // Above chart container's z-index
+                        closeBtn.onclick = function() { fullscreenBtn.click(); };
+                        chartContainer.appendChild(closeBtn);
+
+                    } else {
+                        chartContainer.classList.remove('simfin-fullscreen-chart');
+                        document.body.style.overflow = 'auto';
+                        chartDiv.style.height = originalChartHeight; // Restore original height
+                        fullscreenBtn.textContent = 'הצג במסך מלא';
+                        let closeBtn = chartContainer.querySelector('.btn-danger'); // Find by class
+                        if (closeBtn) closeBtn.remove();
+                    }
+                    // Allow DOM to update, then resize Plotly chart
+                    setTimeout(resizePlotlyChart, 50);
+                });
+            }
+
+            // Initial rendering
+            renderAndSetupCandlestick();
+
+            // Resize chart on window resize (if not in fullscreen)
+            window.addEventListener('resize', function() {
+                if (!isChartFullscreen) {
+                    // If a specific height was set by layout, respect it or use a default
+                    chartDiv.style.height = (candlestickData && candlestickData.layout && candlestickData.layout.height) ? 
+                                            candlestickData.layout.height + 'px' : originalChartHeight;
+                    resizePlotlyChart();
+                } else {
+                    // Fullscreen implies it takes full viewport height minus some padding
+                    chartDiv.style.height = 'calc(100% - 20px)'; // Adjust if chartContainer has padding
+                    resizePlotlyChart();
+                }
+            });
+
         </script>
     {% else %}
-        <p>טוען גרף נרות...</p>
+        {% if not current_ticker %}
+            <p class="mt-4 text-center">אנא בחר טיקר כדי להציג גרף.</p>
+        {% else %}
+            <p class="mt-4 text-center">טוען גרף נרות...</p> {# Placeholder while data loads #}
+        {% endif %}
     {% endif %}
-    <hr>
-{% endif %}
 
-<p {% if current_ticker %}class="mt-4"{% endif %}>ברוכים הבאים למנתח הנתונים הפיננסיים.</p>
-<p>אנא הזן סימול טיקר בשדה בחלק העליון של הדף ולחץ על "בחר מניה והורד נתונים" כדי להתחיל.</p>
-<p>לאחר בחירת מניה, תוכל לנווט באמצעות התפריט בצד כדי לצפות בגרפים או לבצע פעולות נוספות.</p>
+    {# הסרת בלוק סטטוס הורדת דוחות SimFin אם הוא נכתב רק ללוג #}
+    {# {% if session.get('data_download_status') %} ... {% endif %} #}
 
-{% if session.get('data_download_status') %}
-    <h4 class="mt-4">סטטוס הורדת דוחות SimFin אחרונה (עבור {{ session.get('current_ticker', 'לא נבחר טיקר') }}):</h4>
-    <ul class="list-group">
-        {% for key, status in session.get('data_download_status', {}).items() %}
-            <li class="list-group-item 
-                {% if 'Error' in status or 'Failed' in status or 'unexpected format' in status %}list-group-item-danger
-                {% elif 'NoDataFound' in status or 'empty' in status %}list-group-item-warning
-                {% elif 'Saved' in status %}list-group-item-success
-                {% else %}list-group-item-light
-                {% endif %}">
-                <strong>{{ key.replace('_', ' ') | title }}:</strong> {{ status }}
-            </li>
-        {% endfor %}
-    </ul>
+    {# הסרת טקסט קבלת פנים אם רוצים דף נקי יותר #}
+    {# <p {% if current_ticker %}class="mt-4"{% endif %}>ברוכים הבאים...</p> #}
+
+{% else %}
+    {# אם אין current_ticker כלל (בטעינה ראשונית) #}
+    <p class="mt-4 text-center">אנא הזן סימול טיקר בשדה בחלק העליון של הדף ולחץ על "בחר מניה והורד נתונים" כדי להתחיל.</p>
 {% endif %}

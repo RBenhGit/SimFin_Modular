@@ -202,3 +202,221 @@
 2025-05-17 14:18:00,692 - modules.routes.home - INFO - home:29 - Home route accessed. Current ticker in session: 'GOGL'
 2025-05-17 14:18:01,792 - modules.data_loader - INFO - data_loader:88 - get_api_key_status_for_display: Checking API key file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
 2025-05-17 14:18:01,799 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 14:18:01] "GET / HTTP/1.1" 200 -
+2025-05-17 18:24:23,508 - __main__ - INFO - app:45 - Flask application 'app' created.
+2025-05-17 18:24:23,511 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 18:24:23,512 - __main__ - INFO - app:50 - ConfigLoader initialized successfully using file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini
+2025-05-17 18:24:23,513 - __main__ - INFO - app:69 - Successfully loaded FLASK_SECRET_KEY from local secret.py.
+2025-05-17 18:24:23,513 - __main__ - INFO - app:88 - Effective FLASK_SECRET_KEY source: secret.py file
+2025-05-17 18:24:23,514 - __main__ - INFO - app:92 - Attempting initial SimFin configuration on app startup...
+2025-05-17 18:24:23,515 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-17 18:24:23,516 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-17 18:24:23,516 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:24:23,517 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:24:23,518 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-17 18:24:23,519 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:24:23,521 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:24:23,521 - __main__ - INFO - app:95 - Initial SimFin config successful. API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:24:23,522 - __main__ - INFO - app:112 - Context processor for API key status registered.
+2025-05-17 18:24:23,527 - __main__ - INFO - app:118 - Blueprints registered successfully.
+2025-05-17 18:24:23,528 - __main__ - INFO - app:128 - SimFin Analyzer application starting...
+2025-05-17 18:24:23,616 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.188:5000
+2025-05-17 18:24:23,616 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-05-17 18:24:23,619 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-05-17 18:24:26,781 - __main__ - INFO - app:45 - Flask application 'app' created.
+2025-05-17 18:24:26,783 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 18:24:26,784 - __main__ - INFO - app:50 - ConfigLoader initialized successfully using file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini
+2025-05-17 18:24:26,786 - __main__ - INFO - app:69 - Successfully loaded FLASK_SECRET_KEY from local secret.py.
+2025-05-17 18:24:26,787 - __main__ - INFO - app:88 - Effective FLASK_SECRET_KEY source: secret.py file
+2025-05-17 18:24:26,795 - __main__ - INFO - app:92 - Attempting initial SimFin configuration on app startup...
+2025-05-17 18:24:26,797 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-17 18:24:26,798 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-17 18:24:26,799 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:24:26,801 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:24:26,802 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-17 18:24:26,803 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:24:26,805 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:24:26,808 - __main__ - INFO - app:95 - Initial SimFin config successful. API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:24:26,809 - __main__ - INFO - app:112 - Context processor for API key status registered.
+2025-05-17 18:24:26,818 - __main__ - INFO - app:118 - Blueprints registered successfully.
+2025-05-17 18:24:26,819 - __main__ - INFO - app:128 - SimFin Analyzer application starting...
+2025-05-17 18:24:26,894 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-05-17 18:24:26,910 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 536-889-133
+2025-05-17 18:24:31,563 - modules.routes.home - INFO - home:29 - Home route accessed. Current ticker in session: 'GOGL'
+2025-05-17 18:24:34,052 - modules.data_loader - INFO - data_loader:88 - get_api_key_status_for_display: Checking API key file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:24:34,083 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 18:24:34] "GET / HTTP/1.1" 200 -
+2025-05-17 18:24:39,133 - modules.routes.home - INFO - home:61 - set_ticker called for ticker input: 'PYPL'
+2025-05-17 18:24:39,134 - modules.routes.home - INFO - home:68 - Ticker 'PYPL' set in session.
+2025-05-17 18:24:39,138 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 18:24:39,139 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-17 18:24:39,139 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-17 18:24:39,140 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:24:39,141 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:24:39,143 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-17 18:24:39,143 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:24:39,146 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:24:48,033 - modules.routes.home - INFO - home:86 - Cleared previous statement data and download status from session for ticker PYPL.
+2025-05-17 18:24:48,092 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 18:24:48] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 18:24:48,104 - modules.routes.home - INFO - home:29 - Home route accessed. Current ticker in session: 'PYPL'
+2025-05-17 18:24:49,791 - modules.data_loader - INFO - data_loader:88 - get_api_key_status_for_display: Checking API key file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:24:49,805 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 18:24:49] "GET / HTTP/1.1" 200 -
+2025-05-17 18:24:55,951 - modules.routes.graphs - INFO - graphs:77 - Route /graphs/annual for ticker: 'PYPL'. Session keys: ['current_ticker', 'data_download_status', 'income_annual_df_json', 'income_quarterly_df_json']
+2025-05-17 18:24:55,952 - modules.routes.graphs - INFO - graphs:17 - _prepare_financial_charts for ticker: 'PYPL', variant: 'annual'
+2025-05-17 18:24:55,953 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 18:24:55,954 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-17 18:24:55,955 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-17 18:24:55,956 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:24:55,958 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:24:55,959 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-17 18:24:55,961 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:24:55,963 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:24:58,161 - modules.routes.graphs - INFO - graphs:70 - Info messages for PYPL (annual): Data for income (annual) loaded from session.
+2025-05-17 18:24:58,162 - modules.data_loader - INFO - data_loader:88 - get_api_key_status_for_display: Checking API key file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:24:58,190 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 18:24:58] "GET /graphs/annual HTTP/1.1" 200 -
+2025-05-17 18:25:00,332 - modules.routes.graphs - INFO - graphs:94 - Route /graphs/quarterly for ticker: 'PYPL'. Session keys: ['current_ticker', 'data_download_status', 'income_annual_df_json', 'income_quarterly_df_json']
+2025-05-17 18:25:00,332 - modules.routes.graphs - INFO - graphs:17 - _prepare_financial_charts for ticker: 'PYPL', variant: 'quarterly'
+2025-05-17 18:25:00,334 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 18:25:00,335 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-17 18:25:00,336 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-17 18:25:00,337 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:25:00,338 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:25:00,339 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-17 18:25:00,340 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:25:00,342 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:25:00,604 - modules.routes.graphs - INFO - graphs:70 - Info messages for PYPL (quarterly): Data for income (quarterly) loaded from session.
+2025-05-17 18:25:00,607 - modules.data_loader - INFO - data_loader:88 - get_api_key_status_for_display: Checking API key file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:25:00,611 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 18:25:00] "GET /graphs/quarterly HTTP/1.1" 200 -
+2025-05-17 18:26:00,172 - __main__ - INFO - app:45 - Flask application 'app' created.
+2025-05-17 18:26:00,173 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 18:26:00,174 - __main__ - INFO - app:50 - ConfigLoader initialized successfully using file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini
+2025-05-17 18:26:00,176 - __main__ - INFO - app:69 - Successfully loaded FLASK_SECRET_KEY from local secret.py.
+2025-05-17 18:26:00,176 - __main__ - INFO - app:88 - Effective FLASK_SECRET_KEY source: secret.py file
+2025-05-17 18:26:00,177 - __main__ - INFO - app:92 - Attempting initial SimFin configuration on app startup...
+2025-05-17 18:26:00,178 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-17 18:26:00,179 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-17 18:26:00,180 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:00,181 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:00,182 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-17 18:26:00,183 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:26:00,185 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:26:00,186 - __main__ - INFO - app:95 - Initial SimFin config successful. API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:26:00,187 - __main__ - INFO - app:112 - Context processor for API key status registered.
+2025-05-17 18:26:00,193 - __main__ - INFO - app:118 - Blueprints registered successfully.
+2025-05-17 18:26:00,194 - __main__ - INFO - app:128 - SimFin Analyzer application starting...
+2025-05-17 18:26:00,278 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.188:5000
+2025-05-17 18:26:00,279 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-05-17 18:26:00,283 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-05-17 18:26:03,719 - __main__ - INFO - app:45 - Flask application 'app' created.
+2025-05-17 18:26:03,720 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 18:26:03,721 - __main__ - INFO - app:50 - ConfigLoader initialized successfully using file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini
+2025-05-17 18:26:03,721 - __main__ - INFO - app:69 - Successfully loaded FLASK_SECRET_KEY from local secret.py.
+2025-05-17 18:26:03,722 - __main__ - INFO - app:88 - Effective FLASK_SECRET_KEY source: secret.py file
+2025-05-17 18:26:03,722 - __main__ - INFO - app:92 - Attempting initial SimFin configuration on app startup...
+2025-05-17 18:26:03,723 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-17 18:26:03,723 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-17 18:26:03,724 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:03,724 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:03,724 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-17 18:26:03,725 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:26:03,726 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:26:03,738 - __main__ - INFO - app:95 - Initial SimFin config successful. API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:26:03,739 - __main__ - INFO - app:112 - Context processor for API key status registered.
+2025-05-17 18:26:03,745 - __main__ - INFO - app:118 - Blueprints registered successfully.
+2025-05-17 18:26:03,747 - __main__ - INFO - app:128 - SimFin Analyzer application starting...
+2025-05-17 18:26:03,803 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-05-17 18:26:03,822 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 536-889-133
+2025-05-17 18:26:05,917 - modules.routes.home - INFO - home:29 - Home route accessed. Current ticker in session: 'PYPL'
+2025-05-17 18:26:07,667 - modules.data_loader - INFO - data_loader:88 - get_api_key_status_for_display: Checking API key file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:07,691 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 18:26:07] "GET / HTTP/1.1" 200 -
+2025-05-17 18:26:18,971 - modules.routes.home - INFO - home:61 - set_ticker called for ticker input: 'BKNG'
+2025-05-17 18:26:18,972 - modules.routes.home - INFO - home:68 - Ticker 'BKNG' set in session.
+2025-05-17 18:26:18,974 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 18:26:18,975 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-17 18:26:18,976 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-17 18:26:18,977 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:18,979 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:18,982 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-17 18:26:18,983 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:26:18,985 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:26:27,474 - modules.routes.home - INFO - home:86 - Cleared previous statement data and download status from session for ticker BKNG.
+2025-05-17 18:26:27,519 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 18:26:27] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 18:26:27,530 - modules.routes.home - INFO - home:29 - Home route accessed. Current ticker in session: 'BKNG'
+2025-05-17 18:26:29,237 - modules.data_loader - INFO - data_loader:88 - get_api_key_status_for_display: Checking API key file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:29,249 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 18:26:29] "GET / HTTP/1.1" 200 -
+2025-05-17 18:26:35,379 - modules.routes.graphs - INFO - graphs:77 - Route /graphs/annual for ticker: 'BKNG'. Session keys: ['current_ticker', 'data_download_status', 'income_annual_df_json', 'income_quarterly_df_json']
+2025-05-17 18:26:35,380 - modules.routes.graphs - INFO - graphs:17 - _prepare_financial_charts for ticker: 'BKNG', variant: 'annual'
+2025-05-17 18:26:35,382 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 18:26:35,383 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-17 18:26:35,384 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-17 18:26:35,384 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:35,387 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:35,388 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-17 18:26:35,389 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:26:35,391 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:26:37,204 - modules.routes.graphs - INFO - graphs:70 - Info messages for BKNG (annual): Data for income (annual) loaded from session.
+2025-05-17 18:26:37,206 - modules.data_loader - INFO - data_loader:88 - get_api_key_status_for_display: Checking API key file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:37,217 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 18:26:37] "GET /graphs/annual HTTP/1.1" 200 -
+2025-05-17 18:26:39,549 - modules.routes.graphs - INFO - graphs:94 - Route /graphs/quarterly for ticker: 'BKNG'. Session keys: ['current_ticker', 'data_download_status', 'income_annual_df_json', 'income_quarterly_df_json']
+2025-05-17 18:26:39,550 - modules.routes.graphs - INFO - graphs:17 - _prepare_financial_charts for ticker: 'BKNG', variant: 'quarterly'
+2025-05-17 18:26:39,552 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 18:26:39,553 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-17 18:26:39,554 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-17 18:26:39,555 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:39,556 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:39,558 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-17 18:26:39,559 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:26:39,561 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:26:39,923 - modules.routes.graphs - INFO - graphs:70 - Info messages for BKNG (quarterly): Data for income (quarterly) loaded from session.
+2025-05-17 18:26:39,924 - modules.data_loader - INFO - data_loader:88 - get_api_key_status_for_display: Checking API key file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:26:39,928 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 18:26:39] "GET /graphs/quarterly HTTP/1.1" 200 -
+2025-05-17 18:29:17,077 - __main__ - INFO - app:45 - Flask application 'app' created.
+2025-05-17 18:29:17,078 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 18:29:17,079 - __main__ - INFO - app:50 - ConfigLoader initialized successfully using file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini
+2025-05-17 18:29:17,079 - __main__ - INFO - app:69 - Successfully loaded FLASK_SECRET_KEY from local secret.py.
+2025-05-17 18:29:17,079 - __main__ - INFO - app:88 - Effective FLASK_SECRET_KEY source: secret.py file
+2025-05-17 18:29:17,079 - __main__ - INFO - app:92 - Attempting initial SimFin configuration on app startup...
+2025-05-17 18:29:17,079 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-17 18:29:17,079 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-17 18:29:17,081 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:29:17,081 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:29:17,081 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-17 18:29:17,082 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:29:17,082 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:29:17,084 - __main__ - INFO - app:95 - Initial SimFin config successful. API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:29:17,084 - __main__ - INFO - app:112 - Context processor for API key status registered.
+2025-05-17 18:29:17,086 - __main__ - INFO - app:118 - Blueprints registered successfully.
+2025-05-17 18:29:17,087 - __main__ - INFO - app:128 - SimFin Analyzer application starting...
+2025-05-17 18:29:17,146 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.188:5000
+2025-05-17 18:29:17,147 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-05-17 18:29:17,150 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-05-17 18:29:20,372 - __main__ - INFO - app:45 - Flask application 'app' created.
+2025-05-17 18:29:20,373 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 18:29:20,386 - __main__ - INFO - app:50 - ConfigLoader initialized successfully using file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini
+2025-05-17 18:29:20,388 - __main__ - INFO - app:69 - Successfully loaded FLASK_SECRET_KEY from local secret.py.
+2025-05-17 18:29:20,388 - __main__ - INFO - app:88 - Effective FLASK_SECRET_KEY source: secret.py file
+2025-05-17 18:29:20,389 - __main__ - INFO - app:92 - Attempting initial SimFin configuration on app startup...
+2025-05-17 18:29:20,390 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-17 18:29:20,390 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-17 18:29:20,391 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:29:20,393 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:29:20,394 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-17 18:29:20,395 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:29:20,396 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:29:20,396 - __main__ - INFO - app:95 - Initial SimFin config successful. API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 18:29:20,397 - __main__ - INFO - app:112 - Context processor for API key status registered.
+2025-05-17 18:29:20,401 - __main__ - INFO - app:118 - Blueprints registered successfully.
+2025-05-17 18:29:20,402 - __main__ - INFO - app:128 - SimFin Analyzer application starting...
+2025-05-17 18:29:20,446 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-05-17 18:29:20,455 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 536-889-133
+2025-05-17 18:29:23,254 - modules.routes.home - INFO - home:29 - Home route accessed. Current ticker in session: 'BKNG'
+2025-05-17 18:29:26,113 - modules.chart_creator - INFO - chart_creator:167 - Candlestick chart created for BKNG
+2025-05-17 18:29:27,049 - modules.data_loader - INFO - data_loader:88 - get_api_key_status_for_display: Checking API key file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 18:29:27,073 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 18:29:27] "GET / HTTP/1.1" 200 -

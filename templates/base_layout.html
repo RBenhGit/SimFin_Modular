@@ -115,6 +115,34 @@
             margin-bottom: 10px;
             border-radius: 4px;
         }
+        #candlestickChartContainer.simfin-fullscreen-chart {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background-color: white !important; /* Or your chart's background color */
+            z-index: 2000 !important; /* Ensure it's on top of everything */
+            padding: 10px !important; /* Optional padding inside fullscreen */
+            box-sizing: border-box;
+            display: flex; /* For centering/placing the chart div if needed */
+            flex-direction: column; /* Stack buttons and chart */
+            justify-content: center; /* Center vertically */
+            align-items: center; /* Center horizontally */
+        }
+        
+        #candlestickChartContainer.simfin-fullscreen-chart #candlestickChartDiv {
+            height: calc(100% - 20px) !important; /* Adjust if you have internal padding */
+            width: 100% !important;
+        }
+        
+        /* Style for the fullscreen button itself (positioning is done via JS or inline now) */
+        /* #fullscreenBtn { */
+            /* position: absolute; */
+            /* top: -40px;  Adjust as needed based on your layout */
+            /* right: 0px; */
+            /* z-index: 10; */
+        /* } */
     </style>
 </head>
 <body>

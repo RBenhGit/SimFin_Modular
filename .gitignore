@@ -21,3 +21,7 @@ Data/
 
 # Ignore Flask secret key
 secret.py
+
+
+# Word documents
+Documentation/
