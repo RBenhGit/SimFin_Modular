@@ -4,6 +4,7 @@ SimFin Analyzer - Main Application Entry Point
 import os
 import logging
 from flask import Flask
+from logging.handlers import RotatingFileHandler
 
 # Import route blueprints
 from modules.routes import home_bp, graphs_bp, valuations_bp
@@ -14,12 +15,31 @@ from utils.config_loader import ConfigLoader
 
 def create_app():
     """Create and configure the Flask application."""
+    # Configure basic console logging and level for the root logger
     logging.basicConfig(
-        filename='app.log',
-        level=logging.INFO, # Default log level for file
+        level=logging.INFO,
         format='%(asctime)s - %(name)s - %(levelname)s - %(module)s:%(lineno)d - %(message)s'
     )
-    logger = logging.getLogger(__name__)
+
+    # Get the root logger to add the rotating file handler
+    root_logger = logging.getLogger()
+
+    # Setup RotatingFileHandler
+    log_file_path = 'app.log'
+    # Rotate log file if it reaches 5MB, keep 5 backup files. UTF-8 encoding is specified.
+    rotating_file_handler = RotatingFileHandler(
+        log_file_path, maxBytes=5*1024*1024, backupCount=5, encoding='utf-8'
+    )
+    rotating_file_handler.setLevel(logging.INFO) # Set level for this handler
+    
+    # Define a formatter for the file logs (can be same or different from console)
+    file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(module)s:%(lineno)d - %(message)s')
+    rotating_file_handler.setFormatter(file_formatter)
+    
+    # Add the rotating file handler to the root logger
+    root_logger.addHandler(rotating_file_handler)
+
+    logger = logging.getLogger(__name__) # This specific logger will use the root's handlers
 
     app = Flask(__name__, instance_relative_config=False)
     logger.info("Flask application '%s' created.", app.name)
@@ -102,9 +122,6 @@ def create_app():
     return app
 
 if __name__ == '__main__':
-    if not logging.getLogger().hasHandlers():
-        logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
     logger = logging.getLogger(__name__)
     try:
         simfin_app = create_app()
