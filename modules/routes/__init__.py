@@ -1,20 +1,11 @@
-"""Route modules for SimFin Analyzer.
-
-This package contains route handler modules for different sections of the application.
-"""
-
+# modules/routes/__init__.py
+import os
 from flask import Blueprint
 
-# Create blueprints for different sections
-home_bp = Blueprint('home', __name__)
-graphs_bp = Blueprint('graphs', __name__)
-valuations_bp = Blueprint('valuations', __name__)
+template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'templates'))
 
-# Import route handlers to register routes with blueprints
-try:
-    from . import home
-    from . import graphs
-    from . import valuations
-except ImportError:
-    # This might happen during testing or initial setup
-    pass
+home_bp = Blueprint('home', __name__, template_folder=template_dir)
+graphs_bp = Blueprint('graphs', __name__, template_folder=template_dir, url_prefix='/graphs')
+valuations_bp = Blueprint('valuations', __name__, template_folder=template_dir, url_prefix='/valuations')
+
+from . import home, graphs, valuations

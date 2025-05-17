@@ -237,3 +237,432 @@
 2025-05-17 02:23:07,661 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 02:23:07] "GET / HTTP/1.1" 200 -
 2025-05-17 02:23:12,011 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 02:23:12] "GET /graphs/annual HTTP/1.1" 200 -
 2025-05-17 02:23:13,499 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 02:23:13] "GET /graphs/quarterly HTTP/1.1" 200 -
+2025-05-17 08:19:30,702 - root - WARNING - No secrets.py file with FLASK_SECRET_KEY found. Using a generated key. For production, create a secrets.py file with a strong random key.
+2025-05-17 08:19:30,720 - root - INFO - SimFin configured with data directory: data/simfin_data
+2025-05-17 08:19:30,801 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-17 08:19:30,801 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-17 08:19:30,808 - werkzeug - INFO -  * Restarting with stat
+2025-05-17 08:19:33,940 - root - WARNING - No secrets.py file with FLASK_SECRET_KEY found. Using a generated key. For production, create a secrets.py file with a strong random key.
+2025-05-17 08:19:33,940 - root - INFO - SimFin configured with data directory: data/simfin_data
+2025-05-17 08:19:33,964 - werkzeug - WARNING -  * Debugger is active!
+2025-05-17 08:19:33,972 - werkzeug - INFO -  * Debugger PIN: 536-889-133
+2025-05-17 08:28:49,491 - root - WARNING - No secrets.py file with FLASK_SECRET_KEY found. Using a generated key. For production, create a secrets.py file with a strong random key.
+2025-05-17 08:28:49,491 - root - INFO - SimFin configured with data directory: data/simfin_data
+2025-05-17 08:28:49,585 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-17 08:28:49,585 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-17 08:28:49,588 - werkzeug - INFO -  * Restarting with stat
+2025-05-17 08:28:51,716 - root - WARNING - No secrets.py file with FLASK_SECRET_KEY found. Using a generated key. For production, create a secrets.py file with a strong random key.
+2025-05-17 08:28:51,716 - root - INFO - SimFin configured with data directory: data/simfin_data
+2025-05-17 08:28:51,747 - werkzeug - WARNING -  * Debugger is active!
+2025-05-17 08:28:51,760 - werkzeug - INFO -  * Debugger PIN: 536-889-133
+2025-05-17 08:34:43,808 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 08:34:43] "GET / HTTP/1.1" 200 -
+2025-05-17 08:34:59,033 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 08:34:59] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 08:35:01,775 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 08:35:01] "GET / HTTP/1.1" 200 -
+2025-05-17 08:35:09,017 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 08:35:09] "GET /graphs/annual HTTP/1.1" 200 -
+2025-05-17 08:35:13,176 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 08:35:13] "GET /graphs/quarterly HTTP/1.1" 200 -
+2025-05-17 08:35:15,689 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 08:35:15] "GET /valuations/ HTTP/1.1" 200 -
+2025-05-17 08:35:17,077 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 08:35:17] "GET /graphs/quarterly HTTP/1.1" 200 -
+2025-05-17 10:48:17,812 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:48:17] "[32mPOST /update_api_key_action HTTP/1.1[0m" 302 -
+2025-05-17 10:48:18,376 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:48:18] "GET /graphs/quarterly HTTP/1.1" 200 -
+2025-05-17 10:48:25,268 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:48:25] "[32mPOST /update_api_key_action HTTP/1.1[0m" 302 -
+2025-05-17 10:48:25,504 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:48:25] "GET /graphs/quarterly HTTP/1.1" 200 -
+2025-05-17 10:49:05,019 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:49:05] "[32mPOST /update_api_key_action HTTP/1.1[0m" 302 -
+2025-05-17 10:49:05,241 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:49:05] "GET /graphs/quarterly HTTP/1.1" 200 -
+2025-05-17 10:53:49,154 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:53:49] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 10:53:50,758 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:53:50] "GET / HTTP/1.1" 200 -
+2025-05-17 10:54:09,487 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:54:09] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 10:54:11,044 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:54:11] "GET / HTTP/1.1" 200 -
+2025-05-17 10:54:15,585 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:54:15] "GET /graphs/annual HTTP/1.1" 200 -
+2025-05-17 10:54:18,553 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:54:18] "GET /graphs/quarterly HTTP/1.1" 200 -
+2025-05-17 10:54:29,273 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:54:29] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 10:54:30,848 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:54:30] "GET / HTTP/1.1" 200 -
+2025-05-17 10:55:06,376 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:55:06] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 10:55:07,991 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:55:07] "GET / HTTP/1.1" 200 -
+2025-05-17 10:55:12,436 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:55:12] "GET /graphs/annual HTTP/1.1" 200 -
+2025-05-17 10:55:13,665 - werkzeug - INFO - 127.0.0.1 - - [17/May/2025 10:55:13] "GET /graphs/quarterly HTTP/1.1" 200 -
+2025-05-17 11:42:58,481 - __main__ - INFO - app - Flask application created.
+2025-05-17 11:42:58,484 - __main__ - INFO - app - ConfigLoader initialized.
+2025-05-17 11:42:58,484 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 11:42:58,484 - __main__ - ERROR - app - Failed to configure SimFin: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:/Investment Codes/Codes/Developement/SimFin_Modular/app.py", line 84, in create_app
+    api_key, data_dir = configure_simfin(config_loader_instance=config_ini_loader if 'config_ini_loader' in locals() else None)
+TypeError: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:42:58,485 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 11:42:58,489 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 11:42:58,489 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 11:42:58,586 - werkzeug - INFO - _internal - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.188:5000
+2025-05-17 11:42:58,586 - werkzeug - INFO - _internal - [33mPress CTRL+C to quit[0m
+2025-05-17 11:42:58,588 - werkzeug - INFO - _internal -  * Restarting with stat
+2025-05-17 11:43:00,857 - __main__ - INFO - app - Flask application created.
+2025-05-17 11:43:00,858 - __main__ - INFO - app - ConfigLoader initialized.
+2025-05-17 11:43:00,858 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 11:43:00,858 - __main__ - ERROR - app - Failed to configure SimFin: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 84, in create_app
+    api_key, data_dir = configure_simfin(config_loader_instance=config_ini_loader if 'config_ini_loader' in locals() else None)
+TypeError: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:43:00,859 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 11:43:00,861 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 11:43:00,861 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 11:43:00,882 - werkzeug - WARNING - _internal -  * Debugger is active!
+2025-05-17 11:43:00,890 - werkzeug - INFO - _internal -  * Debugger PIN: 536-889-133
+2025-05-17 11:43:15,184 - __main__ - INFO - app - Flask application created.
+2025-05-17 11:43:15,184 - __main__ - INFO - app - ConfigLoader initialized.
+2025-05-17 11:43:15,184 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 11:43:15,184 - __main__ - ERROR - app - Failed to configure SimFin: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:/Investment Codes/Codes/Developement/SimFin_Modular/app.py", line 84, in create_app
+    api_key, data_dir = configure_simfin(config_loader_instance=config_ini_loader if 'config_ini_loader' in locals() else None)
+TypeError: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:43:15,185 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 11:43:15,187 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 11:43:15,187 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 11:43:15,238 - werkzeug - INFO - _internal - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.188:5000
+2025-05-17 11:43:15,238 - werkzeug - INFO - _internal - [33mPress CTRL+C to quit[0m
+2025-05-17 11:43:15,240 - werkzeug - INFO - _internal -  * Restarting with stat
+2025-05-17 11:43:17,646 - __main__ - INFO - app - Flask application created.
+2025-05-17 11:43:17,647 - __main__ - INFO - app - ConfigLoader initialized.
+2025-05-17 11:43:17,647 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 11:43:17,647 - __main__ - ERROR - app - Failed to configure SimFin: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 84, in create_app
+    api_key, data_dir = configure_simfin(config_loader_instance=config_ini_loader if 'config_ini_loader' in locals() else None)
+TypeError: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:43:17,648 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 11:43:17,650 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 11:43:17,650 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 11:43:17,672 - werkzeug - WARNING - _internal -  * Debugger is active!
+2025-05-17 11:43:17,678 - werkzeug - INFO - _internal -  * Debugger PIN: 536-889-133
+2025-05-17 11:43:24,784 - __main__ - ERROR - app - Failed to get API key status for display: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 99, in inject_global_template_variables
+    api_status = get_api_key_status_for_display(config_loader_instance=config_ini_loader if 'config_ini_loader' in locals() else None)
+TypeError: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:43:24,805 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:43:24] "GET / HTTP/1.1" 200 -
+2025-05-17 11:43:35,198 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:43:35] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 11:43:44,421 - __main__ - ERROR - app - Failed to get API key status for display: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 99, in inject_global_template_variables
+    api_status = get_api_key_status_for_display(config_loader_instance=config_ini_loader if 'config_ini_loader' in locals() else None)
+TypeError: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:43:44,431 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:43:44] "GET / HTTP/1.1" 200 -
+2025-05-17 11:43:56,879 - __main__ - ERROR - app - Failed to get API key status for display: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 99, in inject_global_template_variables
+    api_status = get_api_key_status_for_display(config_loader_instance=config_ini_loader if 'config_ini_loader' in locals() else None)
+TypeError: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:43:56,898 - __main__ - ERROR - app - Failed to get API key status for display: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 99, in inject_global_template_variables
+    api_status = get_api_key_status_for_display(config_loader_instance=config_ini_loader if 'config_ini_loader' in locals() else None)
+TypeError: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:43:56,928 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:43:56] "GET /graphs/annual HTTP/1.1" 200 -
+2025-05-17 11:43:56,930 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:43:56] "GET /graphs/annual HTTP/1.1" 200 -
+2025-05-17 11:44:07,761 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:44:07] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 11:44:09,836 - __main__ - ERROR - app - Failed to get API key status for display: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 99, in inject_global_template_variables
+    api_status = get_api_key_status_for_display(config_loader_instance=config_ini_loader if 'config_ini_loader' in locals() else None)
+TypeError: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:44:09,846 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:44:09] "GET / HTTP/1.1" 200 -
+2025-05-17 11:50:21,369 - __main__ - INFO - app - Flask application created.
+2025-05-17 11:50:21,372 - __main__ - INFO - app - ConfigLoader initialized successfully.
+2025-05-17 11:50:21,373 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 11:50:21,373 - __main__ - ERROR - app - Failed to configure SimFin: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:/Investment Codes/Codes/Developement/SimFin_Modular/app.py", line 67, in create_app
+    api_key, data_dir = configure_simfin(config_loader_instance=config_ini_loader)
+TypeError: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:50:21,373 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 11:50:21,377 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 11:50:21,377 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 11:50:21,430 - werkzeug - INFO - _internal - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.188:5000
+2025-05-17 11:50:21,430 - werkzeug - INFO - _internal - [33mPress CTRL+C to quit[0m
+2025-05-17 11:50:21,433 - werkzeug - INFO - _internal -  * Restarting with stat
+2025-05-17 11:50:23,337 - __main__ - INFO - app - Flask application created.
+2025-05-17 11:50:23,337 - __main__ - INFO - app - ConfigLoader initialized successfully.
+2025-05-17 11:50:23,337 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 11:50:23,337 - __main__ - ERROR - app - Failed to configure SimFin: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 67, in create_app
+    api_key, data_dir = configure_simfin(config_loader_instance=config_ini_loader)
+TypeError: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:50:23,338 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 11:50:23,340 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 11:50:23,340 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 11:50:23,363 - werkzeug - WARNING - _internal -  * Debugger is active!
+2025-05-17 11:50:23,369 - werkzeug - INFO - _internal -  * Debugger PIN: 536-889-133
+2025-05-17 11:50:32,130 - __main__ - ERROR - app - Failed to get API key status for display: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 84, in inject_global_template_variables
+    api_status = get_api_key_status_for_display(config_loader_instance=config_ini_loader)
+TypeError: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:50:32,151 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:50:32] "GET / HTTP/1.1" 200 -
+2025-05-17 11:50:42,671 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:50:42] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 11:50:45,228 - __main__ - ERROR - app - Failed to get API key status for display: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 84, in inject_global_template_variables
+    api_status = get_api_key_status_for_display(config_loader_instance=config_ini_loader)
+TypeError: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:58:11,706 - __main__ - INFO - app - Flask application created.
+2025-05-17 11:58:11,706 - __main__ - INFO - app - ConfigLoader initialized successfully.
+2025-05-17 11:58:11,706 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 11:58:11,706 - modules.data_loader - INFO - data_loader - SimFin data directory set to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 11:58:11,706 - __main__ - INFO - app - SimFin configured with API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 11:58:11,706 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 11:58:11,706 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 11:58:11,706 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 11:58:11,764 - werkzeug - INFO - _internal - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.188:5000
+2025-05-17 11:58:11,764 - werkzeug - INFO - _internal - [33mPress CTRL+C to quit[0m
+2025-05-17 11:58:11,764 - werkzeug - INFO - _internal -  * Restarting with stat
+2025-05-17 11:58:13,830 - __main__ - INFO - app - Flask application created.
+2025-05-17 11:58:13,830 - __main__ - INFO - app - ConfigLoader initialized successfully.
+2025-05-17 11:58:13,830 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 11:58:13,830 - modules.data_loader - INFO - data_loader - SimFin data directory set to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 11:58:13,830 - __main__ - INFO - app - SimFin configured with API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 11:58:13,830 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 11:58:13,843 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 11:58:13,843 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 11:58:13,875 - werkzeug - WARNING - _internal -  * Debugger is active!
+2025-05-17 11:58:13,887 - werkzeug - INFO - _internal -  * Debugger PIN: 536-889-133
+2025-05-17 11:58:19,395 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:58:19] "GET / HTTP/1.1" 200 -
+2025-05-17 11:58:33,077 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:58:33] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 11:58:35,503 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:58:35] "GET / HTTP/1.1" 200 -
+2025-05-17 11:58:42,401 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:58:42] "GET /graphs/annual HTTP/1.1" 200 -
+2025-05-17 11:58:45,629 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:58:45] "GET /graphs/quarterly HTTP/1.1" 200 -
+2025-05-17 11:58:47,108 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:58:47] "GET /graphs/annual HTTP/1.1" 200 -
+2025-05-17 11:58:49,612 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:58:49] "GET / HTTP/1.1" 200 -
+2025-05-17 12:09:10,015 - __main__ - INFO - app - Flask application created.
+2025-05-17 12:09:10,015 - __main__ - INFO - app - ConfigLoader initialized successfully.
+2025-05-17 12:09:10,015 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 12:09:10,030 - modules.data_loader - INFO - data_loader - SimFin data directory set to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:09:10,030 - __main__ - INFO - app - SimFin configured with API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:09:10,030 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 12:09:10,033 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 12:09:10,033 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 12:09:10,069 - werkzeug - INFO - _internal - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.188:5000
+2025-05-17 12:09:10,069 - werkzeug - INFO - _internal - [33mPress CTRL+C to quit[0m
+2025-05-17 12:09:10,077 - werkzeug - INFO - _internal -  * Restarting with stat
+2025-05-17 12:09:12,321 - __main__ - INFO - app - Flask application created.
+2025-05-17 12:09:12,321 - __main__ - INFO - app - ConfigLoader initialized successfully.
+2025-05-17 12:09:12,321 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 12:09:12,321 - modules.data_loader - INFO - data_loader - SimFin data directory set to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:09:12,321 - __main__ - INFO - app - SimFin configured with API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:09:12,321 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 12:09:12,330 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 12:09:12,330 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 12:09:12,364 - werkzeug - WARNING - _internal -  * Debugger is active!
+2025-05-17 12:09:12,374 - werkzeug - INFO - _internal -  * Debugger PIN: 536-889-133
+2025-05-17 12:09:16,591 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:09:16] "GET / HTTP/1.1" 200 -
+2025-05-17 12:09:28,881 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:09:28] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 12:09:29,960 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025-05-17 11:50:45,236 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:50:45] "GET / HTTP/1.1" 200 -
+2025-05-17 11:52:33,257 - werkzeug - INFO - _internal -  * Detected change in 'd:\\Investment Codes\\Codes\\Developement\\SimFin_Modular\\utils\\decorators.py', reloading
+2025-05-17 11:52:33,410 - werkzeug - INFO - _internal -  * Restarting with stat
+2025-05-17 11:54:45,892 - __main__ - INFO - app - Flask application created.
+2025-05-17 11:54:45,893 - __main__ - INFO - app - ConfigLoader initialized successfully.
+2025-05-17 11:54:45,893 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 11:54:45,893 - __main__ - ERROR - app - Failed to configure SimFin: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:/Investment Codes/Codes/Developement/SimFin_Modular/app.py", line 67, in create_app
+    api_key, data_dir = configure_simfin(config_loader_instance=config_ini_loader)
+TypeError: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:54:45,893 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 11:54:45,896 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 11:54:45,896 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 11:54:45,936 - werkzeug - INFO - _internal - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.188:5000
+2025-05-17 11:54:45,936 - werkzeug - INFO - _internal - [33mPress CTRL+C to quit[0m
+2025-05-17 11:54:45,938 - werkzeug - INFO - _internal -  * Restarting with stat
+2025-05-17 11:54:47,921 - __main__ - INFO - app - Flask application created.
+2025-05-17 11:54:47,922 - __main__ - INFO - app - ConfigLoader initialized successfully.
+2025-05-17 11:54:47,922 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 11:54:47,922 - __main__ - ERROR - app - Failed to configure SimFin: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 67, in create_app
+    api_key, data_dir = configure_simfin(config_loader_instance=config_ini_loader)
+TypeError: configure_simfin() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:54:47,922 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 11:54:47,924 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 11:54:47,924 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 11:54:47,944 - werkzeug - WARNING - _internal -  * Debugger is active!
+2025-05-17 11:54:47,954 - werkzeug - INFO - _internal -  * Debugger PIN: 536-889-133
+2025-05-17 11:54:56,340 - __main__ - ERROR - app - Failed to get API key status for display: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 84, in inject_global_template_variables
+    api_status = get_api_key_status_for_display(config_loader_instance=config_ini_loader)
+TypeError: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:54:56,360 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:54:56] "GET / HTTP/1.1" 200 -
+2025-05-17 11:55:03,765 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:55:03] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 11:55:06,391 - __main__ - ERROR - app - Failed to get API key status for display: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+Traceback (most recent call last):
+  File "d:\Investment Codes\Codes\Developement\SimFin_Modular\app.py", line 84, in inject_global_template_variables
+    api_status = get_api_key_status_for_display(config_loader_instance=config_ini_loader)
+TypeError: get_api_key_status_for_display() got an unexpected keyword argument 'config_loader_instance'
+2025-05-17 11:55:06,400 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 11:55:06] "GET / HTTP/1.1" 200 -
+2025 12:09:29] "GET / HTTP/1.1" 200 -
+2025-05-17 12:09:43,855 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:09:43] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 12:09:46,110 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:09:46] "GET / HTTP/1.1" 200 -
+2025-05-17 12:09:51,268 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:09:51] "GET /graphs/annual HTTP/1.1" 200 -
+2025-05-17 12:09:53,618 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:09:53] "GET /graphs/quarterly HTTP/1.1" 200 -
+2025-05-17 12:12:25,954 - werkzeug - INFO - _internal -  * Detected change in 'd:\\Investment Codes\\Codes\\Developement\\SimFin_Modular\\modules\\data_loader.py', reloading
+2025-05-17 12:12:26,136 - werkzeug - INFO - _internal -  * Restarting with stat
+2025-05-17 12:12:28,069 - __main__ - INFO - app - Flask application created.
+2025-05-17 12:12:28,070 - __main__ - INFO - app - ConfigLoader initialized successfully.
+2025-05-17 12:12:28,071 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 12:12:28,077 - modules.data_loader - INFO - data_loader - SimFin data directory set to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:12:28,077 - __main__ - INFO - app - SimFin configured with API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:12:28,077 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 12:12:28,082 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 12:12:28,082 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 12:12:28,112 - werkzeug - WARNING - _internal -  * Debugger is active!
+2025-05-17 12:12:28,119 - werkzeug - INFO - _internal -  * Debugger PIN: 536-889-133
+2025-05-17 12:12:45,308 - __main__ - INFO - app - Flask application created.
+2025-05-17 12:12:45,309 - __main__ - INFO - app - ConfigLoader initialized successfully.
+2025-05-17 12:12:45,310 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 12:12:45,313 - modules.data_loader - INFO - data_loader - SimFin data directory set to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:12:45,314 - __main__ - INFO - app - SimFin configured with API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:12:45,314 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 12:12:45,318 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 12:12:45,318 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 12:12:45,375 - werkzeug - INFO - _internal - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.188:5000
+2025-05-17 12:12:45,375 - werkzeug - INFO - _internal - [33mPress CTRL+C to quit[0m
+2025-05-17 12:12:45,377 - werkzeug - INFO - _internal -  * Restarting with stat
+2025-05-17 12:12:47,269 - __main__ - INFO - app - Flask application created.
+2025-05-17 12:12:47,270 - __main__ - INFO - app - ConfigLoader initialized successfully.
+2025-05-17 12:12:47,270 - __main__ - WARNING - app - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 12:12:47,273 - modules.data_loader - INFO - data_loader - SimFin data directory set to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:12:47,274 - __main__ - INFO - app - SimFin configured with API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:12:47,274 - __main__ - INFO - app - Context processor for API key status registered.
+2025-05-17 12:12:47,276 - __main__ - INFO - app - Blueprints registered successfully.
+2025-05-17 12:12:47,276 - __main__ - INFO - app - SimFin Analyzer application starting in debug mode...
+2025-05-17 12:12:47,302 - werkzeug - WARNING - _internal -  * Debugger is active!
+2025-05-17 12:12:47,307 - werkzeug - INFO - _internal -  * Debugger PIN: 536-889-133
+2025-05-17 12:12:59,149 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:12:59] "GET / HTTP/1.1" 200 -
+2025-05-17 12:13:11,220 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:13:11] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 12:13:13,540 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:13:13] "GET / HTTP/1.1" 200 -
+2025-05-17 12:13:18,750 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:13:18] "GET /graphs/annual HTTP/1.1" 200 -
+2025-05-17 12:13:31,814 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:13:31] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 12:13:38,897 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:13:38] "[32mPOST /set_ticker HTTP/1.1[0m" 302 -
+2025-05-17 12:13:40,820 - werkzeug - INFO - _internal - 127.0.0.1 - - [17/May/2025 12:13:40] "GET / HTTP/1.1" 200 -
+2025-05-17 12:21:35,791 - __main__ - INFO - app:26 - Flask application created.
+2025-05-17 12:21:35,792 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 12:21:35,792 - __main__ - INFO - app:31 - ConfigLoader initialized successfully.
+2025-05-17 12:21:35,792 - __main__ - WARNING - app:50 - secrets.py not found.
+2025-05-17 12:21:35,792 - __main__ - WARNING - app:56 - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 12:21:35,792 - __main__ - DEBUG - app:68 - Attempting initial SimFin configuration on app startup...
+2025-05-17 12:21:35,792 - modules.data_loader - DEBUG - data_loader:41 - configure_simfin called. Current _simfin_globally_configured_in_process: False
+2025-05-17 12:21:35,792 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for API.api_key_file: 'config/simfin_api_key.txt' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt'
+2025-05-17 12:21:35,792 - modules.data_loader - DEBUG - data_loader:18 - load_simfin_api_key: API key file path: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 12:21:35,792 - modules.data_loader - DEBUG - data_loader:28 - Loaded custom API key from file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 12:21:35,792 - modules.data_loader - DEBUG - data_loader:47 - SimFin API key set to: Custom (masked)
+2025-05-17 12:21:35,792 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for PATHS.simfin_data_directory: 'data/simfin_data' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data'
+2025-05-17 12:21:35,792 - modules.data_loader - DEBUG - data_loader:54 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:21:35,793 - modules.data_loader - INFO - data_loader:61 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:21:35,793 - __main__ - INFO - app:71 - Initial SimFin config successful. API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:21:35,793 - __main__ - INFO - app:92 - Context processor for API key status registered.
+2025-05-17 12:21:35,795 - __main__ - INFO - app:98 - Blueprints registered successfully.
+2025-05-17 12:21:35,795 - __main__ - INFO - app:108 - SimFin Analyzer application starting in debug mode...
+2025-05-17 12:21:35,864 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.188:5000
+2025-05-17 12:21:35,864 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-05-17 12:21:35,867 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-05-17 12:21:37,724 - __main__ - INFO - app:26 - Flask application created.
+2025-05-17 12:21:37,725 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 12:21:37,725 - __main__ - INFO - app:31 - ConfigLoader initialized successfully.
+2025-05-17 12:21:37,725 - __main__ - WARNING - app:50 - secrets.py not found.
+2025-05-17 12:21:37,725 - __main__ - WARNING - app:56 - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 12:21:37,726 - __main__ - DEBUG - app:68 - Attempting initial SimFin configuration on app startup...
+2025-05-17 12:21:37,726 - modules.data_loader - DEBUG - data_loader:41 - configure_simfin called. Current _simfin_globally_configured_in_process: False
+2025-05-17 12:21:37,726 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for API.api_key_file: 'config/simfin_api_key.txt' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt'
+2025-05-17 12:21:37,726 - modules.data_loader - DEBUG - data_loader:18 - load_simfin_api_key: API key file path: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 12:21:37,726 - modules.data_loader - DEBUG - data_loader:28 - Loaded custom API key from file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 12:21:37,726 - modules.data_loader - DEBUG - data_loader:47 - SimFin API key set to: Custom (masked)
+2025-05-17 12:21:37,726 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for PATHS.simfin_data_directory: 'data/simfin_data' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data'
+2025-05-17 12:21:37,726 - modules.data_loader - DEBUG - data_loader:54 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:21:37,727 - modules.data_loader - INFO - data_loader:61 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:21:37,727 - __main__ - INFO - app:71 - Initial SimFin config successful. API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:21:37,727 - __main__ - INFO - app:92 - Context processor for API key status registered.
+2025-05-17 12:21:37,730 - __main__ - INFO - app:98 - Blueprints registered successfully.
+2025-05-17 12:21:37,730 - __main__ - INFO - app:108 - SimFin Analyzer application starting in debug mode...
+2025-05-17 12:21:37,762 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-05-17 12:21:37,767 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 536-889-133
+2025-05-17 12:21:49,044 - __main__ - INFO - app:26 - Flask application created.
+2025-05-17 12:21:49,044 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 12:21:49,044 - __main__ - INFO - app:31 - ConfigLoader initialized successfully.
+2025-05-17 12:21:49,045 - __main__ - WARNING - app:50 - secrets.py not found.
+2025-05-17 12:21:49,045 - __main__ - WARNING - app:56 - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 12:21:49,045 - __main__ - DEBUG - app:68 - Attempting initial SimFin configuration on app startup...
+2025-05-17 12:21:49,045 - modules.data_loader - DEBUG - data_loader:41 - configure_simfin called. Current _simfin_globally_configured_in_process: False
+2025-05-17 12:21:49,046 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for API.api_key_file: 'config/simfin_api_key.txt' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt'
+2025-05-17 12:21:49,046 - modules.data_loader - DEBUG - data_loader:18 - load_simfin_api_key: API key file path: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 12:21:49,046 - modules.data_loader - DEBUG - data_loader:28 - Loaded custom API key from file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 12:21:49,046 - modules.data_loader - DEBUG - data_loader:47 - SimFin API key set to: Custom (masked)
+2025-05-17 12:21:49,046 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for PATHS.simfin_data_directory: 'data/simfin_data' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data'
+2025-05-17 12:21:49,046 - modules.data_loader - DEBUG - data_loader:54 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:21:49,046 - modules.data_loader - INFO - data_loader:61 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:21:49,046 - __main__ - INFO - app:71 - Initial SimFin config successful. API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:21:49,047 - __main__ - INFO - app:92 - Context processor for API key status registered.
+2025-05-17 12:21:49,049 - __main__ - INFO - app:98 - Blueprints registered successfully.
+2025-05-17 12:21:49,049 - __main__ - INFO - app:108 - SimFin Analyzer application starting in debug mode...
+2025-05-17 12:21:49,084 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.188:5000
+2025-05-17 12:21:49,085 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-05-17 12:21:49,086 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-05-17 12:21:51,103 - __main__ - INFO - app:26 - Flask application created.
+2025-05-17 12:21:51,104 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-17 12:21:51,104 - __main__ - INFO - app:31 - ConfigLoader initialized successfully.
+2025-05-17 12:21:51,104 - __main__ - WARNING - app:50 - secrets.py not found.
+2025-05-17 12:21:51,104 - __main__ - WARNING - app:56 - SECRET_KEY not found in environment or secrets.py. Using a generated temporary key. For production, set a FLASK_SECRET_KEY environment variable or create a secrets.py file.
+2025-05-17 12:21:51,104 - __main__ - DEBUG - app:68 - Attempting initial SimFin configuration on app startup...
+2025-05-17 12:21:51,104 - modules.data_loader - DEBUG - data_loader:41 - configure_simfin called. Current _simfin_globally_configured_in_process: False
+2025-05-17 12:21:51,104 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for API.api_key_file: 'config/simfin_api_key.txt' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt'
+2025-05-17 12:21:51,104 - modules.data_loader - DEBUG - data_loader:18 - load_simfin_api_key: API key file path: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 12:21:51,105 - modules.data_loader - DEBUG - data_loader:28 - Loaded custom API key from file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 12:21:51,105 - modules.data_loader - DEBUG - data_loader:47 - SimFin API key set to: Custom (masked)
+2025-05-17 12:21:51,105 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for PATHS.simfin_data_directory: 'data/simfin_data' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data'
+2025-05-17 12:21:51,105 - modules.data_loader - DEBUG - data_loader:54 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:21:51,105 - modules.data_loader - INFO - data_loader:61 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:21:51,105 - __main__ - INFO - app:71 - Initial SimFin config successful. API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-17 12:21:51,105 - __main__ - INFO - app:92 - Context processor for API key status registered.
+2025-05-17 12:21:51,107 - __main__ - INFO - app:98 - Blueprints registered successfully.
+2025-05-17 12:21:51,108 - __main__ - INFO - app:108 - SimFin Analyzer application starting in debug mode...
+2025-05-17 12:21:51,127 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-05-17 12:21:51,132 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 536-889-133
+2025-05-17 12:21:56,120 - modules.routes.home - DEBUG - home:29 - Home route. Session ticker: None, Session ID: No Session
+2025-05-17 12:21:56,136 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for API.api_key_file: 'config/simfin_api_key.txt' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt'
+2025-05-17 12:21:56,137 - modules.data_loader - DEBUG - data_loader:88 - get_api_key_status_for_display: API key file path for status: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-17 12:21:56,145 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 12:21:56] "GET / HTTP/1.1" 200 -
+2025-05-17 12:22:04,756 - modules.routes.home - INFO - home:71 - set_ticker called for ticker: 'TSLA'
+2025-05-17 12:22:04,757 - modules.routes.home - DEBUG - home:72 - Session before setting ticker: current_ticker='None', Session ID: No Session
+2025-05-17 12:22:04,818 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 12:22:04] "[35m[1mPOST /set_ticker HTTP/1.1[0m" 500 -
+2025-05-17 12:22:04,901 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 12:22:04] "GET /set_ticker?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-05-17 12:22:04,937 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 12:22:04] "GET /set_ticker?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-05-17 12:22:04,999 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 12:22:04] "GET /set_ticker?__debugger__=yes&cmd=resource&f=console.png&s=uZyAnviCau4q1jR1tNGv HTTP/1.1" 200 -
+2025-05-17 12:22:05,072 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [17/May/2025 12:22:05] "GET /set_ticker?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
