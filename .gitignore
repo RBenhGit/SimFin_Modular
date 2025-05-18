@@ -23,5 +23,8 @@ Data/
 secret.py
 
 
-# Word documents
+# Ignore the Word documentations
 Documentation/
+
+# Ignore the log files
+app.log
