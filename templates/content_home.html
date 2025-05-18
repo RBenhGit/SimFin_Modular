@@ -6,6 +6,16 @@
         <div class="alert alert-warning mt-3">{{ price_data_error }}</div>
     {% elif candlestick_chart_json %}
         <div class="row mt-2">
+            <div class="col-md-12 text-center mb-2"> {# Added text-center and mb-2 #}
+                <div class="btn-group" role="group" aria-label="Chart Interval">
+                    <button type="button" class="btn btn-outline-primary interval-btn" data-interval="1d">יומי</button>
+                    <button type="button" class="btn btn-outline-primary interval-btn" data-interval="1wk">שבועי</button>
+                    <button type="button" class="btn btn-outline-primary interval-btn" data-interval="1mo">חודשי</button>
+                    {# <button type="button" class="btn btn-outline-primary interval-btn" data-interval="3mo">רבעוני</button> #}
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
             <div class="col-md-12">
                 {# Container for the chart and fullscreen button #}
                 <div id="candlestickChartContainer" style="position: relative;">
@@ -124,6 +134,48 @@
 
             // Initial rendering
             renderAndSetupCandlestick();
+
+            // Add event listeners for interval buttons
+            document.querySelectorAll('.interval-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const interval = this.dataset.interval;
+                    const ticker = "{{ current_ticker }}"; // Get current ticker
+
+                    // Visually indicate loading
+                    chartDiv.innerHTML = '<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border text-primary" role="status"><span class="sr-only">טוען...</span></div></div>';
+
+                    fetch("{{ url_for('home.route_update_chart_interval') }}", { // New endpoint to be created
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                            {# CSRF token would be included here if using Flask-WTF, e.g.: #}
+                            {# 'X-CSRFToken': '{{ csrf_token() }}' #}
+                        },
+                        body: JSON.stringify({ ticker: ticker, interval: interval })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok: ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.error) {
+                            chartDiv.innerHTML = "<p class='text-danger'>" + data.error + "</p>";
+                            console.error("Chart update error:", data.error);
+                        } else if (data.data && data.layout) {
+                            candlestickData = data; // Update the global chart data
+                            renderAndSetupCandlestick(); // Re-render the chart
+                        } else {
+                            chartDiv.innerHTML = "<p class='text-warning'>לא התקבלו נתונים תקינים לעדכון הגרף.</p>";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching new chart data:', error);
+                        chartDiv.innerHTML = "<p class='text-danger'>שגיאה בעדכון הגרף: " + error.message + "</p>";
+                    });
+                });
+            });
 
             // Resize chart on window resize (if not in fullscreen)
             window.addEventListener('resize', function() {

@@ -108,10 +108,14 @@ def create_candlestick_chart_with_mavg(df_prices, ticker_symbol, moving_averages
             low=df_prices['Low'],
             close=df_prices['Close'],
             name=f'{ticker_symbol} OHLC',
-            increasing_line_color='#2ECC71', 
-            increasing_fillcolor='rgba(46, 204, 113, 0.5)',
-            decreasing_line_color='#E74C3C', 
-            decreasing_fillcolor='rgba(231, 76, 60, 0.5)'
+            # Settings for Hollow Candles:
+            # Increasing candles (Close > Open)
+            increasing_line_color='#2ECC71',        # Green line for bullish candles
+            increasing_fillcolor='rgba(255, 255, 255, 1)', # White fill for bullish (hollow effect on white background)
+            # Decreasing candles (Close < Open)
+            decreasing_line_color='#E74C3C',        # Red line for bearish candles
+            decreasing_fillcolor='#E74C3C',        # Red fill for bearish (solid)
+            line=dict(width=1) # Line width for all candlesticks
         ))
         
         ma_colors = ['#3498DB', '#F1C40F', '#9B59B6', '#E67E22', '#1ABC9C'] # Blue, Yellow, Purple, Orange, Turquoise

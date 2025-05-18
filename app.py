@@ -17,7 +17,7 @@ def create_app():
     """Create and configure the Flask application."""
     # Configure basic console logging and level for the root logger
     logging.basicConfig(
-        level=logging.INFO,
+        level=logging.DEBUG,
         format='%(asctime)s - %(name)s - %(levelname)s - %(module)s:%(lineno)d - %(message)s'
     )
 
@@ -30,7 +30,7 @@ def create_app():
     rotating_file_handler = RotatingFileHandler(
         log_file_path, maxBytes=5*1024*1024, backupCount=5, encoding='utf-8'
     )
-    rotating_file_handler.setLevel(logging.INFO) # Set level for this handler
+    rotating_file_handler.setLevel(logging.DEBUG) # Changed from INFO to DEBUG for diagnostics
     
     # Define a formatter for the file logs (can be same or different from console)
     file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(module)s:%(lineno)d - %(message)s')
@@ -42,6 +42,16 @@ def create_app():
     logger = logging.getLogger(__name__) # This specific logger will use the root's handlers
 
     app = Flask(__name__, instance_relative_config=False)
+
+    # Configuration for price history
+    app.config['PRICE_DATA_DOWNLOAD_PERIOD'] = "2y"  # General default, or could be removed if specific ones below are always used
+    app.config['PRICE_DATA_DISPLAY_YEARS'] = 1     # Number of years to display by default (primarily for daily)
+    
+    # Interval-specific download periods
+    app.config['PRICE_DATA_DOWNLOAD_PERIOD_DAILY'] = "2y"
+    app.config['PRICE_DATA_DOWNLOAD_PERIOD_WEEKLY'] = "5y"
+    app.config['PRICE_DATA_DOWNLOAD_PERIOD_MONTHLY'] = "10y"
+
     logger.info("Flask application '%s' created.", app.name)
 
     config_ini_loader = None

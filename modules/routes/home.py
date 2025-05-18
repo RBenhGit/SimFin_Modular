@@ -6,7 +6,7 @@ import plotly.utils
 import simfin as sf
 import logging
 
-from flask import render_template, request, url_for, redirect, flash, session
+from flask import render_template, request, url_for, redirect, flash, session, current_app, jsonify
 from . import home_bp
 
 from modules.data_loader import ensure_simfin_configured
@@ -30,16 +30,20 @@ def route_home():
 
     if current_ticker:
         try:
-            # הורד 2 שנים של נתונים
+            # קרא את ההגדרות מ-app.config
+            download_period = current_app.config.get('PRICE_DATA_DOWNLOAD_PERIOD', '2y') # Default to '2y' if not set
+            display_years = current_app.config.get('PRICE_DATA_DISPLAY_YEARS', 1)    # Default to 1 year if not set
+
+            # הורד נתונים לפי התקופה שהוגדרה
             df_prices_full = download_price_history_with_mavg(
                 current_ticker,
-                period="2y",  # Changed from 5y to 2y
+                period=download_period, # Use configured download period
                 interval="1d",
                 moving_averages=MOVING_AVERAGES_CONFIG
             )
 
             if df_prices_full is not None and not df_prices_full.empty:
-                # הצג רק את השנה האחרונה כברירת מחדל
+                # הצג רק את התקופה שהוגדרה כברירת מחדל
                 # ודא שהאינדקס הוא datetime
                 if not isinstance(df_prices_full.index, pd.DatetimeIndex):
                     # נסה להמיר אם זה לא אינדקס תאריכים, או טפל בשגיאה אם ההמרה נכשלת
@@ -57,10 +61,10 @@ def route_home():
                         # זה מקרה פחות סביר אם yfinance מחזיר naive
                         now_timestamp = now_timestamp.tz_convert(None) 
                         
-                    one_year_ago = now_timestamp - pd.DateOffset(years=1)
-                    df_prices_display = df_prices_full[df_prices_full.index >= one_year_ago]
+                    start_display_date = now_timestamp - pd.DateOffset(years=display_years) # Use configured display years
+                    df_prices_display = df_prices_full[df_prices_full.index >= start_display_date]
                     if df_prices_display.empty:
-                        logger.warning(f"No data found for {current_ticker} in the last year, displaying all downloaded 2-year data.")
+                        logger.warning(f"No data found for {current_ticker} in the last {display_years} year(s), displaying all downloaded {download_period} data.")
                         df_prices_display = df_prices_full # חזור לכל הנתונים אם הסינון הותיר DataFrame ריק
                 
                 ma_cols_to_plot = [f'MA{ma}' for ma in MOVING_AVERAGES_CONFIG if f'MA{ma}' in df_prices_display.columns]
@@ -198,3 +202,92 @@ def route_update_api_key_action():
         logger.error(f"Generic error updating API key: {e}", exc_info=True)
 
     return redirect(request.referrer or url_for('home.route_home'))
+
+@home_bp.route('/update_chart_interval', methods=['POST'])
+def route_update_chart_interval():
+    try:
+        data = request.get_json()
+        ticker = data.get('ticker')
+        interval = data.get('interval') # e.g., "1d", "1wk", "1mo"
+
+        if not ticker or not interval:
+            return jsonify({"error": "Ticker or interval missing."}), 400
+
+        logger.info(f"Updating chart interval for {ticker} to {interval}")
+
+        # --- DEBUGGING CONFIG ACCESS ---
+        app_config = current_app.config # Store config in a local variable
+        logger.debug(f"Type of app_config: {type(app_config)}")
+        # logger.debug(f"Contents of app_config: {app_config}") # Can be very verbose
+        try:
+            config_items_repr = list(app_config.items()) # Get items for logging
+            logger.debug(f"All items in app_config: {config_items_repr}")
+        except Exception as e_items:
+            logger.debug(f"Could not get items from app_config: {e_items}")
+
+        # Attempt to use .get() again, now that type seems correct
+        daily_period_key = 'PRICE_DATA_DOWNLOAD_PERIOD_DAILY'
+        weekly_period_key = 'PRICE_DATA_DOWNLOAD_PERIOD_WEEKLY'
+        monthly_period_key = 'PRICE_DATA_DOWNLOAD_PERIOD_MONTHLY'
+
+        logger.debug(f"Accessing with .get('{daily_period_key}'): {app_config.get(daily_period_key, 'DEFAULT_DAILY_NOT_FOUND')}")
+        logger.debug(f"Accessing with .get('{weekly_period_key}'): {app_config.get(weekly_period_key, 'DEFAULT_WEEKLY_NOT_FOUND')}")
+        logger.debug(f"Accessing with .get('{monthly_period_key}'): {app_config.get(monthly_period_key, 'DEFAULT_MONTHLY_NOT_FOUND')}")
+        # --- END DEBUGGING CONFIG ACCESS ---
+
+        if interval == '1mo':
+            download_period = app_config.get(monthly_period_key, '10y') 
+        elif interval == '1wk':
+            download_period = app_config.get(weekly_period_key, '5y')
+        else: # Daily
+            download_period = app_config.get(daily_period_key, '2y')
+        
+        if "NOT_FOUND" in download_period: # Check if we hit a default from the debug .get because key was missing
+            logger.error(f"CRITICAL: Config key for interval {interval} was not found! Defaulted to {download_period}")
+            # Potentially raise an error or handle this state if critical
+
+        df_prices = download_price_history_with_mavg(
+            ticker,
+            period=download_period, 
+            interval=interval,
+            moving_averages=MOVING_AVERAGES_CONFIG 
+            # Note: MOVING_AVERAGES_CONFIG might need adjustment for weekly/monthly charts (e.g., 20-week MA instead of 20-day MA)
+            # For now, we keep them as is, meaning they will be calculated based on the new interval's periods.
+        )
+
+        if df_prices is None or df_prices.empty:
+            logger.warning(f"No price data after attempting to fetch for {ticker} with interval {interval}")
+            return jsonify({"error": f"לא נמצאו נתוני מחירים עבור {ticker} באינטרוול {interval}."})
+
+        # For weekly/monthly, we might not need to filter to the last N years if the period itself is long.
+        # The `download_period` effectively becomes the display period for resampled data.
+        # If PRICE_DATA_DISPLAY_YEARS was to be used, it needs context of the interval.
+        # For now, we display all data fetched for the given interval.
+        df_prices_display = df_prices 
+
+        ma_cols_to_plot = [f'MA{ma}' for ma in MOVING_AVERAGES_CONFIG if f'MA{ma}' in df_prices_display.columns]
+        chart_data = create_candlestick_chart_with_mavg(df_prices_display, ticker, ma_cols_to_plot)
+
+        if chart_data and "error" not in chart_data:
+            logger.debug(f"Returning chart data for {ticker}, interval {interval}: {str(chart_data)[:200]}...") # Log snippet of data
+            # Serialize Plotly objects correctly before jsonify
+            chart_data_json_str = json.dumps(chart_data, cls=plotly.utils.PlotlyJSONEncoder)
+            chart_data_for_jsonify = json.loads(chart_data_json_str)
+            return jsonify(chart_data_for_jsonify)
+        elif chart_data and "error" in chart_data:
+            error_payload = chart_data.get('error', 'שגיאה לא ידועה ביצירת הגרף')
+            logger.warning(f"Error creating candlestick chart for {ticker} with interval {interval}: {error_payload}")
+            logger.debug(f"Returning error payload: {{'error': '{error_payload}'}}")
+            return jsonify({"error": error_payload})
+        else:
+            logger.warning(f"Unknown error or no data from create_candlestick_chart_with_mavg for {ticker}, interval {interval}")
+            logger.debug("Returning generic error payload: {'error': 'שגיאה לא ידועה או נתונים חסרים לאחר יצירת הגרף.'}")
+            return jsonify({"error": "שגיאה לא ידועה או נתונים חסרים לאחר יצירת הגרף."})
+            
+    except Exception as e:
+        # Ensure data variable is defined for the logger even if request.get_json() fails
+        ticker_val = request.get_json().get('ticker', '?') if request.is_json else '?'
+        interval_val = request.get_json().get('interval', '?') if request.is_json else '?'
+        logger.error(f"Error in /update_chart_interval for ticker {ticker_val}, interval {interval_val}: {e}", exc_info=True)
+        logger.debug(f"Returning exception payload: {{'error': 'שגיאת שרת בעידכון הגרף: {str(e)}'}}")
+        return jsonify({"error": f"שגיאת שרת בעידכון הגרף: {str(e)}"}), 500
