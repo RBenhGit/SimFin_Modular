@@ -20,6 +20,8 @@ logger = logging.getLogger(__name__)
 STATEMENTS_TO_MANAGE_IN_SESSION = ['income']
 VARIANTS_TO_MANAGE = ['annual', 'quarterly']
 MOVING_AVERAGES_CONFIG = [20, 50, 100, 150, 200]
+# Define a prefix for price data cache keys in session
+PRICE_DATA_CACHE_PREFIX = 'price_data_cache_'
 
 @home_bp.route('/')
 def route_home():
@@ -30,17 +32,44 @@ def route_home():
 
     if current_ticker:
         try:
-            # קרא את ההגדרות מ-app.config
-            download_period = current_app.config.get('PRICE_DATA_DOWNLOAD_PERIOD', '2y') # Default to '2y' if not set
-            display_years = current_app.config.get('PRICE_DATA_DISPLAY_YEARS', 1)    # Default to 1 year if not set
+            download_period = current_app.config.get('PRICE_DATA_DOWNLOAD_PERIOD', '2y')
+            display_years = current_app.config.get('PRICE_DATA_DISPLAY_YEARS', 1)
+            
+            # Cache key for default daily view
+            # For route_home, interval is always '1d' effectively for the initial download_period
+            cache_key = f"{PRICE_DATA_CACHE_PREFIX}{current_ticker}_{download_period}_1d"
+            df_prices_full_json = session.get(cache_key)
+            df_prices_full = None
 
-            # הורד נתונים לפי התקופה שהוגדרה
-            df_prices_full = download_price_history_with_mavg(
-                current_ticker,
-                period=download_period, # Use configured download period
-                interval="1d",
-                moving_averages=MOVING_AVERAGES_CONFIG
-            )
+            if df_prices_full_json:
+                try:
+                    df_prices_full = pd.read_json(df_prices_full_json, orient='split')
+                    # Ensure index is DatetimeIndex
+                    df_prices_full.index = pd.to_datetime(df_prices_full.index, errors='coerce')
+                    df_prices_full = df_prices_full[df_prices_full.index.notna()]
+                    if not df_prices_full.empty:
+                         logger.info(f"Loaded initial daily price data for {current_ticker} from session cache (key: {cache_key}).")
+                    else: # Cache was empty or failed to parse
+                        df_prices_full = None # Ensure it's None to trigger download
+                        logger.info(f"Cache for {cache_key} was empty/invalid, will re-download.")
+                except Exception as e:
+                    logger.warning(f"Error deserializing cached price data for {cache_key}: {e}. Will re-download.")
+                    df_prices_full = None # Ensure download if cache is corrupt
+
+            if df_prices_full is None:
+                logger.info(f"No valid cache for {cache_key}, downloading initial daily price data for {current_ticker} with period {download_period}.")
+                df_prices_full = download_price_history_with_mavg(
+                    current_ticker,
+                    period=download_period,
+                    interval="1d", # Default interval for home page
+                    moving_averages=MOVING_AVERAGES_CONFIG
+                )
+                if df_prices_full is not None and not df_prices_full.empty:
+                    session[cache_key] = df_prices_full.to_json(orient='split', date_format='iso')
+                    logger.info(f"Stored initial daily price data for {current_ticker} in session cache (key: {cache_key}).")
+                elif df_prices_full is None: # download_price_history_with_mavg can return None
+                     logger.warning(f"download_price_history_with_mavg returned None for {current_ticker}, period {download_period}, interval 1d.")
+                # If df_prices_full is empty, it will be handled by the logic below.
 
             if df_prices_full is not None and not df_prices_full.empty:
                 # הצג רק את התקופה שהוגדרה כברירת מחדל
@@ -75,9 +104,9 @@ def route_home():
                 elif chart_data and "error" in chart_data:
                     price_error = chart_data["error"]
                     logger.warning(f"Error creating candlestick chart for {current_ticker}: {price_error}")
-            else:
+            else: # This handles if df_prices_full is None or empty after attempt to load/download
                 price_error = f"לא נמצאו נתוני מחירים עבור {current_ticker} או שגיאה בהורדה."
-                logger.warning(f"No price data for {current_ticker} or download_price_history_with_mavg returned None/empty.")
+                logger.warning(f"No price data for {current_ticker} to display on home page (either cache empty/invalid or download failed/empty).")
         except Exception as e:
             logger.error(f"Error in home route processing for ticker {current_ticker}: {e}", exc_info=True)
             price_error = f"שגיאה כללית בעיבוד נתוני מחיר עבור {current_ticker}."
@@ -98,6 +127,22 @@ def route_set_ticker():
         flash("לא הוזן טיקר.", "warning")
         return redirect(url_for('home.route_home'))
 
+    # Clear previous ticker's price data from session
+    if session.get('current_ticker') and session.get('current_ticker') != ticker:
+        keys_to_delete = [key for key in session.keys() if key.startswith(f"{PRICE_DATA_CACHE_PREFIX}{session.get('current_ticker')}_")]
+        for key in keys_to_delete:
+            session.pop(key, None)
+            logger.info(f"Cleared old price cache from session: {key}")
+    # Also clear any generic cache not tied to the old ticker but might be there from previous logic
+    # This is a more aggressive clear, adjust if specific cache keys are known and different
+    # For now, just clearing based on the old ticker prefix is safer.
+    # Example of clearing all price data cache, regardless of old ticker (if needed, but riskier)
+    # all_price_cache_keys = [key for key in session.keys() if key.startswith(PRICE_DATA_CACHE_PREFIX)]
+    # for key in all_price_cache_keys:
+    #     session.pop(key, None)
+    # logger.info(f"Cleared ALL price data cache entries from session.")
+
+
     session['current_ticker'] = ticker
     logger.info(f"Ticker '{ticker}' set in session.")
     flash(f"מעבד נתונים עבור {ticker}...", "info")
@@ -117,7 +162,7 @@ def route_set_ticker():
             for variant_clear in VARIANTS_TO_MANAGE:
                 session.pop(f'{stmt_key_clear}_{variant_clear}_df_json', None)
         session.pop('data_download_status', None)
-        logger.info(f"Cleared previous statement data and download status from session for ticker {ticker}.")
+        logger.info(f"Cleared previous financial statement data and download status from session for ticker {ticker}.")
 
         save_status = save_financial_statements(download_results, ticker)
         session['data_download_status'] = save_status
@@ -214,63 +259,62 @@ def route_update_chart_interval():
             return jsonify({"error": "Ticker or interval missing."}), 400
 
         logger.info(f"Updating chart interval for {ticker} to {interval}")
-
-        # --- DEBUGGING CONFIG ACCESS ---
-        app_config = current_app.config # Store config in a local variable
-        logger.debug(f"Type of app_config: {type(app_config)}")
-        # logger.debug(f"Contents of app_config: {app_config}") # Can be very verbose
-        try:
-            config_items_repr = list(app_config.items()) # Get items for logging
-            logger.debug(f"All items in app_config: {config_items_repr}")
-        except Exception as e_items:
-            logger.debug(f"Could not get items from app_config: {e_items}")
-
-        # Attempt to use .get() again, now that type seems correct
-        daily_period_key = 'PRICE_DATA_DOWNLOAD_PERIOD_DAILY'
-        weekly_period_key = 'PRICE_DATA_DOWNLOAD_PERIOD_WEEKLY'
-        monthly_period_key = 'PRICE_DATA_DOWNLOAD_PERIOD_MONTHLY'
-
-        logger.debug(f"Accessing with .get('{daily_period_key}'): {app_config.get(daily_period_key, 'DEFAULT_DAILY_NOT_FOUND')}")
-        logger.debug(f"Accessing with .get('{weekly_period_key}'): {app_config.get(weekly_period_key, 'DEFAULT_WEEKLY_NOT_FOUND')}")
-        logger.debug(f"Accessing with .get('{monthly_period_key}'): {app_config.get(monthly_period_key, 'DEFAULT_MONTHLY_NOT_FOUND')}")
-        # --- END DEBUGGING CONFIG ACCESS ---
-
-        if interval == '1mo':
-            download_period = app_config.get(monthly_period_key, '10y') 
-        elif interval == '1wk':
-            download_period = app_config.get(weekly_period_key, '5y')
-        else: # Daily
-            download_period = app_config.get(daily_period_key, '2y')
         
-        if "NOT_FOUND" in download_period: # Check if we hit a default from the debug .get because key was missing
-            logger.error(f"CRITICAL: Config key for interval {interval} was not found! Defaulted to {download_period}")
-            # Potentially raise an error or handle this state if critical
+        app_config = current_app.config
+        # Determine download_period based on interval from config
+        if interval == '1mo':
+            download_period = app_config.get('PRICE_DATA_DOWNLOAD_PERIOD_MONTHLY', '10y') 
+        elif interval == '1wk':
+            download_period = app_config.get('PRICE_DATA_DOWNLOAD_PERIOD_WEEKLY', '5y')
+        else: # Daily ('1d')
+            download_period = app_config.get('PRICE_DATA_DOWNLOAD_PERIOD_DAILY', '2y') # Matches route_home initial
+        
+        # Construct the cache key using ticker, determined download_period, and interval
+        cache_key = f"{PRICE_DATA_CACHE_PREFIX}{ticker}_{download_period}_{interval}"
+        df_prices_json = session.get(cache_key)
+        df_prices = None
 
-        df_prices = download_price_history_with_mavg(
-            ticker,
-            period=download_period, 
-            interval=interval,
-            moving_averages=MOVING_AVERAGES_CONFIG 
-            # Note: MOVING_AVERAGES_CONFIG might need adjustment for weekly/monthly charts (e.g., 20-week MA instead of 20-day MA)
-            # For now, we keep them as is, meaning they will be calculated based on the new interval's periods.
-        )
+        if df_prices_json:
+            try:
+                df_prices = pd.read_json(df_prices_json, orient='split')
+                # Ensure index is DatetimeIndex
+                df_prices.index = pd.to_datetime(df_prices.index, errors='coerce')
+                df_prices = df_prices[df_prices.index.notna()]
+                if not df_prices.empty:
+                    logger.info(f"Loaded price data for {ticker}, period {download_period}, interval {interval} from session cache (key: {cache_key}).")
+                else: # Cache was empty/invalid
+                    df_prices = None
+                    logger.info(f"Cache for {cache_key} was empty/invalid, will re-download.")
+            except Exception as e:
+                logger.warning(f"Error deserializing cached price data for {cache_key}: {e}. Will re-download.")
+                df_prices = None # Ensure download if cache is corrupt
+        
+        if df_prices is None:
+            logger.info(f"No valid cache for {cache_key}, downloading price data for {ticker}, period {download_period}, interval {interval}.")
+            df_prices = download_price_history_with_mavg(
+                ticker,
+                period=download_period, 
+                interval=interval,
+                moving_averages=MOVING_AVERAGES_CONFIG
+            )
+            if df_prices is not None and not df_prices.empty:
+                session[cache_key] = df_prices.to_json(orient='split', date_format='iso')
+                logger.info(f"Stored price data for {ticker}, period {download_period}, interval {interval} in session cache (key: {cache_key}).")
+            elif df_prices is None:
+                 logger.warning(f"download_price_history_with_mavg returned None for {ticker}, period {download_period}, interval {interval}.")
+            # If df_prices is empty, it will be handled by the logic below.
 
         if df_prices is None or df_prices.empty:
-            logger.warning(f"No price data after attempting to fetch for {ticker} with interval {interval}")
+            logger.warning(f"No price data after attempting to fetch/load from cache for {ticker} with interval {interval}")
             return jsonify({"error": f"לא נמצאו נתוני מחירים עבור {ticker} באינטרוול {interval}."})
 
-        # For weekly/monthly, we might not need to filter to the last N years if the period itself is long.
-        # The `download_period` effectively becomes the display period for resampled data.
-        # If PRICE_DATA_DISPLAY_YEARS was to be used, it needs context of the interval.
-        # For now, we display all data fetched for the given interval.
-        df_prices_display = df_prices 
+        df_prices_display = df_prices # Use all data from the specific period/interval download
 
         ma_cols_to_plot = [f'MA{ma}' for ma in MOVING_AVERAGES_CONFIG if f'MA{ma}' in df_prices_display.columns]
         chart_data = create_candlestick_chart_with_mavg(df_prices_display, ticker, ma_cols_to_plot)
 
         if chart_data and "error" not in chart_data:
-            logger.debug(f"Returning chart data for {ticker}, interval {interval}: {str(chart_data)[:200]}...") # Log snippet of data
-            # Serialize Plotly objects correctly before jsonify
+            logger.debug(f"Returning chart data for {ticker}, interval {interval}: {str(chart_data)[:200]}...")
             chart_data_json_str = json.dumps(chart_data, cls=plotly.utils.PlotlyJSONEncoder)
             chart_data_for_jsonify = json.loads(chart_data_json_str)
             return jsonify(chart_data_for_jsonify)
@@ -285,7 +329,6 @@ def route_update_chart_interval():
             return jsonify({"error": "שגיאה לא ידועה או נתונים חסרים לאחר יצירת הגרף."})
             
     except Exception as e:
-        # Ensure data variable is defined for the logger even if request.get_json() fails
         ticker_val = request.get_json().get('ticker', '?') if request.is_json else '?'
         interval_val = request.get_json().get('interval', '?') if request.is_json else '?'
         logger.error(f"Error in /update_chart_interval for ticker {ticker_val}, interval {interval_val}: {e}", exc_info=True)

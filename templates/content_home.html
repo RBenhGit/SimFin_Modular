@@ -5,192 +5,147 @@
     {% if price_data_error %}
         <div class="alert alert-warning mt-3">{{ price_data_error }}</div>
     {% elif candlestick_chart_json %}
-        <div class="row mt-2">
-            <div class="col-md-12 text-center mb-2"> {# Added text-center and mb-2 #}
-                <div class="btn-group" role="group" aria-label="Chart Interval">
-                    <button type="button" class="btn btn-outline-primary interval-btn" data-interval="1d">יומי</button>
-                    <button type="button" class="btn btn-outline-primary interval-btn" data-interval="1wk">שבועי</button>
-                    <button type="button" class="btn btn-outline-primary interval-btn" data-interval="1mo">חודשי</button>
-                    {# <button type="button" class="btn btn-outline-primary interval-btn" data-interval="3mo">רבעוני</button> #}
+        <div class="container-fluid mt-3">
+            {% if price_data_error %}
+                <div class="alert alert-danger" role="alert">
+                    שגיאה בטעינת נתוני מחיר: {{ price_data_error }}
                 </div>
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-md-12">
-                {# Container for the chart and fullscreen button #}
-                <div id="candlestickChartContainer" style="position: relative;">
-                    <button id="fullscreenBtn" class="btn btn-sm btn-outline-secondary mb-1"
-                            style="position: absolute; top: 0px; left: 0px; z-index: 10;">
-                        מסך מלא
-                    </button>
-                    <div id="candlestickChartDiv" style="width: 100%; height: 75vh;"></div> {# גובה התחלתי יחסי #}
+            {% endif %}
+
+            {% if current_ticker %}
+                {# New wrapper for custom fullscreen #}
+                <div id="chartAreaWrapper" style="position: relative; background-color: white;"> 
+                    {# Container for interval buttons and custom fullscreen button #}
+                    <div id="chartControls" class="mb-2 text-center" style="padding: 5px; background-color: #f8f9fa; border-radius: 5px;">
+                        <button id="toggleFullscreenBtn" class="btn btn-sm btn-outline-secondary mr-2">מסך מלא</button>
+                        <button id="updateChart_1d" class="btn btn-sm btn-primary interval-btn" data-interval="1d">יומי (2 שנים)</button>
+                        <button id="updateChart_1wk" class="btn btn-sm btn-info interval-btn" data-interval="1wk">שבועי (5 שנים)</button>
+                        <button id="updateChart_1mo" class="btn btn-sm btn-warning interval-btn" data-interval="1mo">חודשי (10 שנים)</button>
+                        <span id="chartLoadingStatus" class="ml-2" style="display: none;">טוען גרף...</span>
+                    </div>
+
+                    {# Div where the Plotly chart will be rendered #}
+                    <div id="candlestickChartDiv" style="width: 100%; height: 70vh;"></div> {# גובה התחלתי יחסי #}
                 </div>
-            </div>
+            {% else %}
+                <div class="alert alert-info" role="alert">
+                    אנא בחר טיקר להצגת נתונים.
+                </div>
+            {% endif %}
         </div>
 
-        <script type="text/javascript">
-            var candlestickData = {{ candlestick_chart_json | safe }};
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var currentTicker = "{{ current_ticker or '' }}";
+            var initialChartDataJson = {{ candlestick_chart_json|safe if candlestick_chart_json else 'null' }};
             var chartDiv = document.getElementById('candlestickChartDiv');
-            var chartContainer = document.getElementById('candlestickChartContainer');
-            var fullscreenBtn = document.getElementById('fullscreenBtn');
-            var isChartFullscreen = false; // Variable to track fullscreen state
-            var originalChartHeight = '75vh'; // Store initial height
+            var chartControlsDiv = document.getElementById('chartControls'); // Get the controls div
+            var chartAreaWrapper = document.getElementById('chartAreaWrapper'); // Wrapper for fullscreen
+            var toggleFullscreenBtn = document.getElementById('toggleFullscreenBtn');
+            var chartLoadingStatus = document.getElementById('chartLoadingStatus');
 
+            // Configuration for Plotly: hide the default fullscreen button
             var plotlyConfig = {
                 responsive: true,
-                scrollZoom: true,    // Enable mousewheel zoom on the chart itself
-                displayModeBar: true, // Show Plotly's mode bar
-                // Specify buttons to keep: pan, zoom in/out, autoscale, reset, download chart
-                // 'toImage' is the button for downloading as PNG.
-                // 'resetScale2d' can be useful for resetting both axes.
-                modeBarButtons: [[
-                    'zoomIn2d', 'zoomOut2d', 
-                    'autoScale2d', 'resetScale2d',
-                    'pan2d', 
-                    'toImage' 
-                    // Consider adding 'select2d', 'lasso2d' if selection is needed
-                    // 'hoverClosestCartesian', 'hoverCompareCartesian' are for hover interactions
-                ]],
-                // Explicitly set dragmode if needed, 'pan' is good for navigation
-                // if Plotly's default isn't pan with the above buttons.
-                // dragmode: 'pan', 
-                displaylogo: false // Hide the Plotly logo
+                displaylogo: false,
+                modeBarButtonsToRemove: ['resetScale2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian', 'toggleSpikelines', 'sendDataToCloud', 'resetViews', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'drawclosedpath', 'drawopenpath', 'drawline', 'drawrect', 'drawcircle', 'eraseshape', 'zoom3d', 'pan3d', 'orbitRotation', 'tableRotation', 'resetCameraDefault3d', 'resetCameraLastSave3d', 'hoverClosest3d', 'hoverClosestGl2d', 'hoverClosestPie', 'toggleHover', 'resetViews', 'toImage'] // Keep 'resetScale2d', remove others as needed. Crucially, 'resetViews' or the fullscreen button itself if its specific name is known. The default list is quite extensive to ensure it's gone.
             };
 
-            function renderAndSetupCandlestick() {
-                if (candlestickData && candlestickData.data && candlestickData.layout) {
-                    // Update chart height from layout if provided, otherwise use default
-                    if (candlestickData.layout && candlestickData.layout.height) {
-                        chartDiv.style.height = candlestickData.layout.height + 'px';
-                        originalChartHeight = chartDiv.style.height;
-                    } else {
-                        chartDiv.style.height = originalChartHeight;
-                    }
-
-                    Plotly.newPlot('candlestickChartDiv', candlestickData.data, candlestickData.layout, plotlyConfig)
-                        .then(function(gd) {
-                            // Optional: Add listener for wheel event to prevent page scroll IF Plotly's scrollZoom isn't enough
-                            // chartDiv.addEventListener('wheel', function(event) {
-                            //     if (chartDiv.contains(event.target)) {
-                            //         // Check if Plotly is handling the zoom, or if we need to prevent page scroll
-                            //         // For now, assume Plotly's scrollZoom handles it well.
-                            //         // If page still scrolls, uncomment:
-                            //         // event.preventDefault();
-                            //     }
-                            // }, { passive: true }); // Try true first, then false if preventDefault is needed
-                            console.log("Candlestick chart rendered.");
-                        });
-                } else if (candlestickData && candlestickData.error) {
-                    chartDiv.innerHTML = "<p class='text-danger'>" + candlestickData.error + "</p>";
-                    console.error("Candlestick chart error:", candlestickData.error);
-                } else {
-                    chartDiv.innerHTML = "<p class='text-secondary'>גרף נרות לא זמין או אין נתונים.</p>";
+            if (initialChartDataJson && chartDiv) {
+                try {
+                    Plotly.newPlot('candlestickChartDiv', initialChartDataJson.data, initialChartDataJson.layout, plotlyConfig);
+                } catch (e) {
+                    console.error("Error rendering initial chart:", e);
+                    chartDiv.innerHTML = "<div class='alert alert-warning'>שגיאה בהצגת הגרף הראשוני.</div>";
                 }
+            } else if (currentTicker && chartDiv) {
+                // chartDiv.innerHTML = "<div class='alert alert-info'>טוען גרף...</div>"; // This might be shown if no error but also no initial data.
             }
 
-            function resizePlotlyChart() {
-                // Check if the chart div and plotly data exist
-                var currentChartDiv = document.getElementById('candlestickChartDiv');
-                if (currentChartDiv && currentChartDiv.data) { // currentChartDiv.data is a Plotly specific check
-                    Plotly.Plots.resize(currentChartDiv);
-                    console.log("Plotly chart resized.");
-                } else {
-                    console.log("Plotly chart div or data not found for resize.");
-                }
-            }
-            
-            if (fullscreenBtn && chartContainer) {
-                fullscreenBtn.addEventListener('click', function() {
-                    isChartFullscreen = !isChartFullscreen;
-                    if (isChartFullscreen) {
-                        originalChartHeight = chartDiv.style.height; // Save current height before going fullscreen
-                        
-                        chartContainer.classList.add('simfin-fullscreen-chart');
-                        document.body.style.overflow = 'hidden'; // Prevent body scroll
-                        fullscreenBtn.textContent = 'צא ממסך מלא';
-                        // Add a close button dynamically inside the fullscreen container
-                        let closeBtn = document.createElement('button');
-                        closeBtn.innerHTML = '&times;';
-                        closeBtn.classList.add('btn', 'btn-sm', 'btn-danger');
-                        closeBtn.style.position = 'absolute';
-                        closeBtn.style.top = '10px';
-                        closeBtn.style.left = '10px'; // Changed to left for RTL consistency with close buttons
-                        closeBtn.style.zIndex = '2001'; // Above chart container's z-index
-                        closeBtn.onclick = function() { fullscreenBtn.click(); };
-                        chartContainer.appendChild(closeBtn);
-
-                    } else {
-                        chartContainer.classList.remove('simfin-fullscreen-chart');
-                        document.body.style.overflow = 'auto';
-                        chartDiv.style.height = originalChartHeight; // Restore original height
-                        fullscreenBtn.textContent = 'הצג במסך מלא';
-                        let closeBtn = chartContainer.querySelector('.btn-danger'); // Find by class
-                        if (closeBtn) closeBtn.remove();
-                    }
-                    // Allow DOM to update, then resize Plotly chart
-                    setTimeout(resizePlotlyChart, 50);
-                });
-            }
-
-            // Initial rendering
-            renderAndSetupCandlestick();
-
-            // Add event listeners for interval buttons
             document.querySelectorAll('.interval-btn').forEach(button => {
                 button.addEventListener('click', function() {
-                    const interval = this.dataset.interval;
-                    const ticker = "{{ current_ticker }}"; // Get current ticker
+                    var interval = this.dataset.interval;
+                    if (!currentTicker) {
+                        alert("יש לבחור טיקר תחילה.");
+                        return;
+                    }
+                    
+                    chartLoadingStatus.style.display = 'inline'; // Show loading status
+                    // Visually disable buttons
+                    document.querySelectorAll('.interval-btn').forEach(btn => btn.disabled = true);
 
-                    // Visually indicate loading
-                    chartDiv.innerHTML = '<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border text-primary" role="status"><span class="sr-only">טוען...</span></div></div>';
-
-                    fetch("{{ url_for('home.route_update_chart_interval') }}", { // New endpoint to be created
+                    fetch("{{ url_for('home.route_update_chart_interval') }}", {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json'
-                            {# CSRF token would be included here if using Flask-WTF, e.g.: #}
-                            {# 'X-CSRFToken': '{{ csrf_token() }}' #}
+                            'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ ticker: ticker, interval: interval })
+                        body: JSON.stringify({ ticker: currentTicker, interval: interval })
                     })
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('Network response was not ok: ' + response.statusText);
+                            return response.json().then(err => {throw new Error(err.error || 'Network response was not ok: ' + response.statusText)});
                         }
                         return response.json();
                     })
                     .then(data => {
                         if (data.error) {
-                            chartDiv.innerHTML = "<p class='text-danger'>" + data.error + "</p>";
-                            console.error("Chart update error:", data.error);
-                        } else if (data.data && data.layout) {
-                            candlestickData = data; // Update the global chart data
-                            renderAndSetupCandlestick(); // Re-render the chart
-                        } else {
-                            chartDiv.innerHTML = "<p class='text-warning'>לא התקבלו נתונים תקינים לעדכון הגרף.</p>";
+                            alert('שגיאה בעדכון הגרף: ' + data.error);
+                            chartDiv.innerHTML = "<div class='alert alert-warning'>שגיאה בעדכון הגרף: " + data.error + "</div>";
+                        } else if (data.data && data.layout && chartDiv) {
+                            Plotly.react('candlestickChartDiv', data.data, data.layout, plotlyConfig); // Use react for updates
                         }
                     })
                     .catch(error => {
-                        console.error('Error fetching new chart data:', error);
-                        chartDiv.innerHTML = "<p class='text-danger'>שגיאה בעדכון הגרף: " + error.message + "</p>";
+                        console.error('Error updating chart:', error);
+                        alert('שגיאה חמורה בעדכון הגרף: ' + error.message);
+                        chartDiv.innerHTML = "<div class='alert alert-danger'>שגיאה חמורה בעדכון הגרף. בדוק את הלוגים.</div>";
+                    })
+                    .finally(() => {
+                        chartLoadingStatus.style.display = 'none'; // Hide loading status
+                        // Re-enable buttons
+                        document.querySelectorAll('.interval-btn').forEach(btn => btn.disabled = false);
                     });
                 });
             });
 
-            // Resize chart on window resize (if not in fullscreen)
-            window.addEventListener('resize', function() {
-                if (!isChartFullscreen) {
-                    // If a specific height was set by layout, respect it or use a default
-                    chartDiv.style.height = (candlestickData && candlestickData.layout && candlestickData.layout.height) ? 
-                                            candlestickData.layout.height + 'px' : originalChartHeight;
-                    resizePlotlyChart();
-                } else {
-                    // Fullscreen implies it takes full viewport height minus some padding
-                    chartDiv.style.height = 'calc(100% - 20px)'; // Adjust if chartContainer has padding
-                    resizePlotlyChart();
-                }
-            });
+            // Custom Fullscreen Logic
+            if (toggleFullscreenBtn && chartAreaWrapper && chartDiv) {
+                toggleFullscreenBtn.addEventListener('click', function() {
+                    if (!document.fullscreenElement) {
+                        chartAreaWrapper.requestFullscreen().catch(err => {
+                            alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                        });
+                    } else {
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                    }
+                });
 
+                document.addEventListener('fullscreenchange', function() {
+                    // Delay resize slightly to allow DOM to settle after fullscreen change
+                    setTimeout(function() {
+                        if (chartDiv) {
+                            Plotly.Plots.resize(chartDiv);
+                        }
+                    }, 100); // 100ms delay, adjust if needed
+
+                    // Adjust button text
+                    if (document.fullscreenElement) {
+                        toggleFullscreenBtn.textContent = 'צא ממסך מלא';
+                        // Optionally, add a class to the wrapper for specific fullscreen styling
+                        chartAreaWrapper.classList.add('simfin-fullscreen-active');
+                         if (chartControlsDiv) chartControlsDiv.style.zIndex = '1050'; // Ensure controls are above chart in fullscreen
+
+                    } else {
+                        toggleFullscreenBtn.textContent = 'מסך מלא';
+                        chartAreaWrapper.classList.remove('simfin-fullscreen-active');
+                         if (chartControlsDiv) chartControlsDiv.style.zIndex = 'auto';
+
+                    }
+                });
+            }
+        });
         </script>
     {% else %}
         {% if not current_ticker %}

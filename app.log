@@ -4068,3 +4068,242 @@ TypeError: Object of type Candlestick is not JSON serializable
                     507.73001099, 522.46002197]),
     'decreasing': {'fillcolor': '#E74C3C', 'l...
 2025-05-18 08:38:24,156 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [18/May/2025 08:38:24] "POST /update_chart_interval HTTP/1.1" 200 -
+2025-05-18 09:01:42,376 - __main__ - INFO - app:55 - Flask application 'app' created.
+2025-05-18 09:01:42,381 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-18 09:01:42,382 - __main__ - INFO - app:60 - ConfigLoader initialized successfully using file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini
+2025-05-18 09:01:42,384 - __main__ - INFO - app:79 - Successfully loaded FLASK_SECRET_KEY from local secret.py.
+2025-05-18 09:01:42,384 - __main__ - INFO - app:98 - Effective FLASK_SECRET_KEY source: secret.py file
+2025-05-18 09:01:42,385 - __main__ - INFO - app:102 - Attempting initial SimFin configuration on app startup...
+2025-05-18 09:01:42,386 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-18 09:01:42,387 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-18 09:01:42,388 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for API.api_key_file: 'config/simfin_api_key.txt' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt'
+2025-05-18 09:01:42,388 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-18 09:01:42,389 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-18 09:01:42,389 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-18 09:01:42,390 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for PATHS.simfin_data_directory: 'data/simfin_data' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data'
+2025-05-18 09:01:42,391 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-18 09:01:42,393 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-18 09:01:42,394 - __main__ - INFO - app:105 - Initial SimFin config successful. API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-18 09:01:42,395 - __main__ - INFO - app:122 - Context processor for API key status registered.
+2025-05-18 09:01:42,400 - __main__ - INFO - app:128 - Blueprints registered successfully.
+2025-05-18 09:01:42,401 - __main__ - INFO - app:138 - SimFin Analyzer application starting...
+2025-05-18 09:01:42,493 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.9.110:5000
+2025-05-18 09:01:42,494 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-05-18 09:01:42,498 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-05-18 09:01:46,355 - __main__ - INFO - app:55 - Flask application 'app' created.
+2025-05-18 09:01:46,357 - utils.config_loader - INFO - config_loader:20 - Config file 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini' loaded successfully.
+2025-05-18 09:01:46,358 - __main__ - INFO - app:60 - ConfigLoader initialized successfully using file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/config.ini
+2025-05-18 09:01:46,358 - __main__ - INFO - app:79 - Successfully loaded FLASK_SECRET_KEY from local secret.py.
+2025-05-18 09:01:46,358 - __main__ - INFO - app:98 - Effective FLASK_SECRET_KEY source: secret.py file
+2025-05-18 09:01:46,359 - __main__ - INFO - app:102 - Attempting initial SimFin configuration on app startup...
+2025-05-18 09:01:46,359 - modules.data_loader - INFO - data_loader:82 - ensure_simfin_configured: Ensuring SimFin is configured for the current operation.
+2025-05-18 09:01:46,360 - modules.data_loader - INFO - data_loader:53 - configure_simfin: Configuring SimFin settings...
+2025-05-18 09:01:46,362 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for API.api_key_file: 'config/simfin_api_key.txt' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt'
+2025-05-18 09:01:46,362 - modules.data_loader - INFO - data_loader:31 - Loading SimFin API key. Attempting to use file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-18 09:01:46,364 - modules.data_loader - INFO - data_loader:41 - Loaded custom API key from: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-18 09:01:46,365 - modules.data_loader - INFO - data_loader:59 - SimFin API key set (type: Custom)
+2025-05-18 09:01:46,366 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for PATHS.simfin_data_directory: 'data/simfin_data' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data'
+2025-05-18 09:01:46,367 - modules.data_loader - INFO - data_loader:65 - SimFin data directory path to be set: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-18 09:01:46,368 - modules.data_loader - INFO - data_loader:72 - SimFin data directory set successfully to: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-18 09:01:46,371 - __main__ - INFO - app:105 - Initial SimFin config successful. API key: Custom, Data directory: d:\Investment Codes\Codes\Developement\SimFin_Modular\data/simfin_data
+2025-05-18 09:01:46,372 - __main__ - INFO - app:122 - Context processor for API key status registered.
+2025-05-18 09:01:46,386 - __main__ - INFO - app:128 - Blueprints registered successfully.
+2025-05-18 09:01:46,387 - __main__ - INFO - app:138 - SimFin Analyzer application starting...
+2025-05-18 09:01:46,450 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-05-18 09:01:46,476 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 536-889-133
+2025-05-18 09:01:46,577 - modules.routes.home - INFO - home:31 - Home route accessed. Current ticker in session: 'SPGI'
+2025-05-18 09:01:46,578 - modules.routes.home - INFO - home:60 - No valid cache for price_data_cache_SPGI_2y_1d, downloading initial daily price data for SPGI with period 2y.
+2025-05-18 09:01:46,580 - yfinance - DEBUG - utils:96 - Entering history()
+2025-05-18 09:01:46,600 - peewee - DEBUG - peewee:3319 - ('CREATE TABLE IF NOT EXISTS "_kv" ("key" VARCHAR(255) NOT NULL PRIMARY KEY, "value" VARCHAR(255)) WITHOUT ROWID', [])
+2025-05-18 09:01:46,601 - peewee - DEBUG - peewee:3319 - ('SELECT "t1"."key", "t1"."value" FROM "_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['SPGI', 1, 0])
+2025-05-18 09:01:46,807 - yfinance - DEBUG - utils:96 -  Entering history()
+2025-05-18 09:01:46,808 - yfinance - DEBUG - history:165 - SPGI: Yahoo GET parameters: {'range': '2y', 'interval': '1d', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2025-05-18 09:01:46,809 - yfinance - DEBUG - utils:96 -   Entering get()
+2025-05-18 09:01:46,809 - yfinance - DEBUG - utils:96 -    Entering _make_request()
+2025-05-18 09:01:46,811 - yfinance - DEBUG - data:375 - url=https://query2.finance.yahoo.com/v8/finance/chart/SPGI
+2025-05-18 09:01:46,811 - yfinance - DEBUG - data:376 - params={'range': '2y', 'interval': '1d', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2025-05-18 09:01:46,811 - yfinance - DEBUG - utils:96 -     Entering _get_cookie_and_crumb()
+2025-05-18 09:01:46,811 - yfinance - DEBUG - data:341 - cookie_mode = 'basic'
+2025-05-18 09:01:46,813 - yfinance - DEBUG - utils:96 -      Entering _get_cookie_and_crumb_basic()
+2025-05-18 09:01:46,814 - yfinance - DEBUG - utils:96 -       Entering _get_cookie_basic()
+2025-05-18 09:01:46,814 - yfinance - DEBUG - utils:96 -        Entering _load_cookie_curlCffi()
+2025-05-18 09:01:46,819 - peewee - DEBUG - peewee:3319 - ('CREATE TABLE IF NOT EXISTS "_cookieschema" ("strategy" VARCHAR(255) NOT NULL PRIMARY KEY, "fetch_date" DATETIME NOT NULL, "cookie_bytes" BLOB NOT NULL) WITHOUT ROWID', [])
+2025-05-18 09:01:46,821 - peewee - DEBUG - peewee:3319 - ('SELECT "t1"."strategy", "t1"."fetch_date", "t1"."cookie_bytes" FROM "_cookieschema" AS "t1" WHERE ("t1"."strategy" = ?) LIMIT ? OFFSET ?', ['curlCffi', 1, 0])
+2025-05-18 09:01:46,824 - yfinance - DEBUG - utils:101 -        Exiting _load_cookie_curlCffi()
+2025-05-18 09:01:46,826 - yfinance - DEBUG - data:190 - reusing persistent cookie
+2025-05-18 09:01:46,828 - yfinance - DEBUG - utils:101 -       Exiting _get_cookie_basic()
+2025-05-18 09:01:46,830 - yfinance - DEBUG - utils:96 -       Entering _get_crumb_basic()
+2025-05-18 09:01:46,832 - yfinance - DEBUG - utils:96 -        Entering _get_cookie_basic()
+2025-05-18 09:01:46,834 - yfinance - DEBUG - data:187 - reusing cookie
+2025-05-18 09:01:46,836 - yfinance - DEBUG - utils:101 -        Exiting _get_cookie_basic()
+2025-05-18 09:01:47,640 - yfinance - DEBUG - data:230 - crumb = 'bskTZPfQm/b'
+2025-05-18 09:01:47,642 - yfinance - DEBUG - utils:101 -       Exiting _get_crumb_basic()
+2025-05-18 09:01:47,643 - yfinance - DEBUG - utils:101 -      Exiting _get_cookie_and_crumb_basic()
+2025-05-18 09:01:47,644 - yfinance - DEBUG - utils:101 -     Exiting _get_cookie_and_crumb()
+2025-05-18 09:01:48,478 - yfinance - DEBUG - data:399 - response code=200
+2025-05-18 09:01:48,480 - yfinance - DEBUG - utils:101 -    Exiting _make_request()
+2025-05-18 09:01:48,480 - yfinance - DEBUG - utils:101 -   Exiting get()
+2025-05-18 09:01:48,501 - yfinance - DEBUG - history:281 - SPGI: yfinance received OHLC data: 2023-05-17 13:30:00 -> 2025-05-16 13:30:00
+2025-05-18 09:01:48,518 - yfinance - DEBUG - history:318 - SPGI: OHLC after cleaning: 2023-05-17 09:30:00-04:00 -> 2025-05-16 09:30:00-04:00
+2025-05-18 09:01:48,552 - yfinance - DEBUG - history:388 - SPGI: OHLC after combining events: 2023-05-17 00:00:00-04:00 -> 2025-05-16 00:00:00-04:00
+2025-05-18 09:01:48,568 - yfinance - DEBUG - history:467 - SPGI: yfinance returning OHLC: 2023-05-17 00:00:00-04:00 -> 2025-05-16 00:00:00-04:00
+2025-05-18 09:01:48,569 - yfinance - DEBUG - utils:101 -  Exiting history()
+2025-05-18 09:01:48,569 - yfinance - DEBUG - utils:101 - Exiting history()
+2025-05-18 09:01:48,585 - modules.routes.home - INFO - home:69 - Stored initial daily price data for SPGI in session cache (key: price_data_cache_SPGI_2y_1d).
+2025-05-18 09:01:50,546 - modules.chart_creator - INFO - chart_creator:172 - Candlestick chart created for SPGI
+2025-05-18 09:01:50,692 - utils.config_loader - DEBUG - config_loader:69 - Resolved path for API.api_key_file: 'config/simfin_api_key.txt' -> 'd:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt'
+2025-05-18 09:01:50,693 - modules.data_loader - INFO - data_loader:88 - get_api_key_status_for_display: Checking API key file: d:\Investment Codes\Codes\Developement\SimFin_Modular\config/simfin_api_key.txt
+2025-05-18 09:01:50,738 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [18/May/2025 09:01:50] "GET / HTTP/1.1" 200 -
+2025-05-18 09:02:00,907 - modules.routes.home - INFO - home:261 - Updating chart interval for SPGI to 1d
+2025-05-18 09:02:00,908 - modules.routes.home - INFO - home:293 - No valid cache for price_data_cache_SPGI_2y_1d, downloading price data for SPGI, period 2y, interval 1d.
+2025-05-18 09:02:00,909 - yfinance - DEBUG - utils:96 - Entering history()
+2025-05-18 09:02:00,911 - peewee - DEBUG - peewee:3319 - ('SELECT "t1"."key", "t1"."value" FROM "_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['SPGI', 1, 0])
+2025-05-18 09:02:00,920 - yfinance - DEBUG - utils:96 -  Entering history()
+2025-05-18 09:02:00,921 - yfinance - DEBUG - history:165 - SPGI: Yahoo GET parameters: {'range': '2y', 'interval': '1d', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2025-05-18 09:02:00,922 - yfinance - DEBUG - utils:96 -   Entering get()
+2025-05-18 09:02:00,923 - yfinance - DEBUG - utils:96 -    Entering _make_request()
+2025-05-18 09:02:00,924 - yfinance - DEBUG - data:375 - url=https://query2.finance.yahoo.com/v8/finance/chart/SPGI
+2025-05-18 09:02:00,925 - yfinance - DEBUG - data:376 - params={'range': '2y', 'interval': '1d', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2025-05-18 09:02:00,927 - yfinance - DEBUG - utils:96 -     Entering _get_cookie_and_crumb()
+2025-05-18 09:02:00,928 - yfinance - DEBUG - data:341 - cookie_mode = 'basic'
+2025-05-18 09:02:00,928 - yfinance - DEBUG - utils:96 -      Entering _get_cookie_and_crumb_basic()
+2025-05-18 09:02:00,930 - yfinance - DEBUG - utils:96 -       Entering _get_cookie_basic()
+2025-05-18 09:02:00,935 - yfinance - DEBUG - data:187 - reusing cookie
+2025-05-18 09:02:00,937 - yfinance - DEBUG - utils:101 -       Exiting _get_cookie_basic()
+2025-05-18 09:02:00,938 - yfinance - DEBUG - utils:96 -       Entering _get_crumb_basic()
+2025-05-18 09:02:00,942 - yfinance - DEBUG - data:209 - reusing crumb
+2025-05-18 09:02:00,944 - yfinance - DEBUG - utils:101 -       Exiting _get_crumb_basic()
+2025-05-18 09:02:00,948 - yfinance - DEBUG - utils:101 -      Exiting _get_cookie_and_crumb_basic()
+2025-05-18 09:02:00,949 - yfinance - DEBUG - utils:101 -     Exiting _get_cookie_and_crumb()
+2025-05-18 09:02:01,635 - yfinance - DEBUG - data:399 - response code=200
+2025-05-18 09:02:01,637 - yfinance - DEBUG - utils:101 -    Exiting _make_request()
+2025-05-18 09:02:01,638 - yfinance - DEBUG - utils:101 -   Exiting get()
+2025-05-18 09:02:01,653 - yfinance - DEBUG - history:281 - SPGI: yfinance received OHLC data: 2023-05-17 13:30:00 -> 2025-05-16 13:30:00
+2025-05-18 09:02:01,659 - yfinance - DEBUG - history:318 - SPGI: OHLC after cleaning: 2023-05-17 09:30:00-04:00 -> 2025-05-16 09:30:00-04:00
+2025-05-18 09:02:01,707 - yfinance - DEBUG - history:388 - SPGI: OHLC after combining events: 2023-05-17 00:00:00-04:00 -> 2025-05-16 00:00:00-04:00
+2025-05-18 09:02:01,736 - yfinance - DEBUG - history:467 - SPGI: yfinance returning OHLC: 2023-05-17 00:00:00-04:00 -> 2025-05-16 00:00:00-04:00
+2025-05-18 09:02:01,737 - yfinance - DEBUG - utils:101 -  Exiting history()
+2025-05-18 09:02:01,738 - yfinance - DEBUG - utils:101 - Exiting history()
+2025-05-18 09:02:01,766 - modules.routes.home - INFO - home:302 - Stored price data for SPGI, period 2y, interval 1d in session cache (key: price_data_cache_SPGI_2y_1d).
+2025-05-18 09:02:02,029 - modules.chart_creator - INFO - chart_creator:172 - Candlestick chart created for SPGI
+2025-05-18 09:02:02,318 - modules.routes.home - DEBUG - home:317 - Returning chart data for SPGI, interval 1d: {'data': (Candlestick({
+    'close': array([355.00271606, 357.81564331, 359.40908813, ..., 511.94000244,
+                    519.2800293 , 522.46002197]),
+    'decreasing': {'fillcolor': '#E74C3C', 'l...
+2025-05-18 09:02:02,586 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [18/May/2025 09:02:02] "POST /update_chart_interval HTTP/1.1" 200 -
+2025-05-18 09:02:03,819 - modules.routes.home - INFO - home:261 - Updating chart interval for SPGI to 1wk
+2025-05-18 09:02:03,822 - modules.routes.home - INFO - home:293 - No valid cache for price_data_cache_SPGI_5y_1wk, downloading price data for SPGI, period 5y, interval 1wk.
+2025-05-18 09:02:03,823 - yfinance - DEBUG - utils:96 - Entering history()
+2025-05-18 09:02:03,825 - peewee - DEBUG - peewee:3319 - ('SELECT "t1"."key", "t1"."value" FROM "_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['SPGI', 1, 0])
+2025-05-18 09:02:03,833 - yfinance - DEBUG - utils:96 -  Entering history()
+2025-05-18 09:02:03,834 - yfinance - DEBUG - history:165 - SPGI: Yahoo GET parameters: {'range': '5y', 'interval': '1wk', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2025-05-18 09:02:03,835 - yfinance - DEBUG - utils:96 -   Entering get()
+2025-05-18 09:02:03,836 - yfinance - DEBUG - utils:96 -    Entering _make_request()
+2025-05-18 09:02:03,837 - yfinance - DEBUG - data:375 - url=https://query2.finance.yahoo.com/v8/finance/chart/SPGI
+2025-05-18 09:02:03,838 - yfinance - DEBUG - data:376 - params={'range': '5y', 'interval': '1wk', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2025-05-18 09:02:03,838 - yfinance - DEBUG - utils:96 -     Entering _get_cookie_and_crumb()
+2025-05-18 09:02:03,840 - yfinance - DEBUG - data:341 - cookie_mode = 'basic'
+2025-05-18 09:02:03,841 - yfinance - DEBUG - utils:96 -      Entering _get_cookie_and_crumb_basic()
+2025-05-18 09:02:03,842 - yfinance - DEBUG - utils:96 -       Entering _get_cookie_basic()
+2025-05-18 09:02:03,844 - yfinance - DEBUG - data:187 - reusing cookie
+2025-05-18 09:02:03,845 - yfinance - DEBUG - utils:101 -       Exiting _get_cookie_basic()
+2025-05-18 09:02:03,846 - yfinance - DEBUG - utils:96 -       Entering _get_crumb_basic()
+2025-05-18 09:02:03,846 - yfinance - DEBUG - data:209 - reusing crumb
+2025-05-18 09:02:03,847 - yfinance - DEBUG - utils:101 -       Exiting _get_crumb_basic()
+2025-05-18 09:02:03,850 - yfinance - DEBUG - utils:101 -      Exiting _get_cookie_and_crumb_basic()
+2025-05-18 09:02:03,852 - yfinance - DEBUG - utils:101 -     Exiting _get_cookie_and_crumb()
+2025-05-18 09:02:04,381 - yfinance - DEBUG - data:399 - response code=200
+2025-05-18 09:02:04,382 - yfinance - DEBUG - utils:101 -    Exiting _make_request()
+2025-05-18 09:02:04,384 - yfinance - DEBUG - utils:101 -   Exiting get()
+2025-05-18 09:02:04,397 - yfinance - DEBUG - history:281 - SPGI: yfinance received OHLC data: 2020-05-18 04:00:00 -> 2025-05-16 20:00:02
+2025-05-18 09:02:04,403 - yfinance - DEBUG - history:318 - SPGI: OHLC after cleaning: 2020-05-18 00:00:00-04:00 -> 2025-05-16 16:00:02-04:00
+2025-05-18 09:02:04,478 - yfinance - DEBUG - history:388 - SPGI: OHLC after combining events: 2020-05-18 00:00:00-04:00 -> 2025-05-16 00:00:00-04:00
+2025-05-18 09:02:04,517 - yfinance - DEBUG - history:467 - SPGI: yfinance returning OHLC: 2020-05-18 00:00:00-04:00 -> 2025-05-12 00:00:00-04:00
+2025-05-18 09:02:04,519 - yfinance - DEBUG - utils:101 -  Exiting history()
+2025-05-18 09:02:04,520 - yfinance - DEBUG - utils:101 - Exiting history()
+2025-05-18 09:02:04,541 - modules.routes.home - INFO - home:302 - Stored price data for SPGI, period 5y, interval 1wk in session cache (key: price_data_cache_SPGI_5y_1wk).
+2025-05-18 09:02:04,833 - modules.chart_creator - INFO - chart_creator:172 - Candlestick chart created for SPGI
+2025-05-18 09:02:05,017 - modules.routes.home - DEBUG - home:317 - Returning chart data for SPGI, interval 1wk: {'data': (Candlestick({
+    'close': array([299.03393555, 311.65270996, 320.34759521, ..., 506.61999512,
+                    507.73001099, 522.46002197]),
+    'decreasing': {'fillcolor': '#E74C3C', 'l...
+2025-05-18 09:02:05,175 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [18/May/2025 09:02:05] "POST /update_chart_interval HTTP/1.1" 200 -
+2025-05-18 09:02:06,068 - modules.routes.home - INFO - home:261 - Updating chart interval for SPGI to 1mo
+2025-05-18 09:02:06,069 - modules.routes.home - INFO - home:293 - No valid cache for price_data_cache_SPGI_10y_1mo, downloading price data for SPGI, period 10y, interval 1mo.
+2025-05-18 09:02:06,073 - yfinance - DEBUG - utils:96 - Entering history()
+2025-05-18 09:02:06,075 - peewee - DEBUG - peewee:3319 - ('SELECT "t1"."key", "t1"."value" FROM "_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['SPGI', 1, 0])
+2025-05-18 09:02:06,081 - yfinance - DEBUG - utils:96 -  Entering history()
+2025-05-18 09:02:06,082 - yfinance - DEBUG - history:165 - SPGI: Yahoo GET parameters: {'range': '10y', 'interval': '1mo', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2025-05-18 09:02:06,083 - yfinance - DEBUG - utils:96 -   Entering get()
+2025-05-18 09:02:06,086 - yfinance - DEBUG - utils:96 -    Entering _make_request()
+2025-05-18 09:02:06,087 - yfinance - DEBUG - data:375 - url=https://query2.finance.yahoo.com/v8/finance/chart/SPGI
+2025-05-18 09:02:06,088 - yfinance - DEBUG - data:376 - params={'range': '10y', 'interval': '1mo', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2025-05-18 09:02:06,094 - yfinance - DEBUG - utils:96 -     Entering _get_cookie_and_crumb()
+2025-05-18 09:02:06,095 - yfinance - DEBUG - data:341 - cookie_mode = 'basic'
+2025-05-18 09:02:06,096 - yfinance - DEBUG - utils:96 -      Entering _get_cookie_and_crumb_basic()
+2025-05-18 09:02:06,097 - yfinance - DEBUG - utils:96 -       Entering _get_cookie_basic()
+2025-05-18 09:02:06,097 - yfinance - DEBUG - data:187 - reusing cookie
+2025-05-18 09:02:06,099 - yfinance - DEBUG - utils:101 -       Exiting _get_cookie_basic()
+2025-05-18 09:02:06,100 - yfinance - DEBUG - utils:96 -       Entering _get_crumb_basic()
+2025-05-18 09:02:06,102 - yfinance - DEBUG - data:209 - reusing crumb
+2025-05-18 09:02:06,103 - yfinance - DEBUG - utils:101 -       Exiting _get_crumb_basic()
+2025-05-18 09:02:06,104 - yfinance - DEBUG - utils:101 -      Exiting _get_cookie_and_crumb_basic()
+2025-05-18 09:02:06,105 - yfinance - DEBUG - utils:101 -     Exiting _get_cookie_and_crumb()
+2025-05-18 09:02:07,695 - yfinance - DEBUG - data:399 - response code=200
+2025-05-18 09:02:07,696 - yfinance - DEBUG - utils:101 -    Exiting _make_request()
+2025-05-18 09:02:07,697 - yfinance - DEBUG - utils:101 -   Exiting get()
+2025-05-18 09:02:07,702 - yfinance - DEBUG - history:281 - SPGI: yfinance received OHLC data: 2015-06-01 04:00:00 -> 2025-05-16 20:00:02
+2025-05-18 09:02:07,705 - yfinance - DEBUG - history:318 - SPGI: OHLC after cleaning: 2015-06-01 00:00:00-04:00 -> 2025-05-16 16:00:02-04:00
+2025-05-18 09:02:07,820 - yfinance - DEBUG - utils:795 - Discarding these Dividends events:
+                           Dividends
+2015-05-22 00:00:00-04:00       0.33
+2025-05-18 09:02:07,829 - yfinance - DEBUG - history:388 - SPGI: OHLC after combining events: 2015-06-01 00:00:00-04:00 -> 2025-05-16 00:00:00-04:00
+2025-05-18 09:02:07,868 - yfinance - DEBUG - history:467 - SPGI: yfinance returning OHLC: 2015-06-01 00:00:00-04:00 -> 2025-05-01 00:00:00-04:00
+2025-05-18 09:02:07,869 - yfinance - DEBUG - utils:101 -  Exiting history()
+2025-05-18 09:02:07,870 - yfinance - DEBUG - utils:101 - Exiting history()
+2025-05-18 09:02:07,884 - modules.routes.home - INFO - home:302 - Stored price data for SPGI, period 10y, interval 1mo in session cache (key: price_data_cache_SPGI_10y_1mo).
+2025-05-18 09:02:08,053 - modules.chart_creator - INFO - chart_creator:172 - Candlestick chart created for SPGI
+2025-05-18 09:02:08,207 - modules.routes.home - DEBUG - home:317 - Returning chart data for SPGI, interval 1mo: {'data': (Candlestick({
+    'close': array([ 91.24667358,  92.42756653,  88.10370636,  78.84449005,  84.44107819,
+                     87.93209839,  90.16243744,  77.76029968,  82.07727814,  90.894104...
+2025-05-18 09:02:08,282 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [18/May/2025 09:02:08] "POST /update_chart_interval HTTP/1.1" 200 -
+2025-05-18 09:02:13,443 - modules.routes.home - INFO - home:261 - Updating chart interval for SPGI to 1wk
+2025-05-18 09:02:13,444 - modules.routes.home - INFO - home:293 - No valid cache for price_data_cache_SPGI_5y_1wk, downloading price data for SPGI, period 5y, interval 1wk.
+2025-05-18 09:02:13,446 - yfinance - DEBUG - utils:96 - Entering history()
+2025-05-18 09:02:13,447 - peewee - DEBUG - peewee:3319 - ('SELECT "t1"."key", "t1"."value" FROM "_kv" AS "t1" WHERE ("t1"."key" = ?) LIMIT ? OFFSET ?', ['SPGI', 1, 0])
+2025-05-18 09:02:13,452 - yfinance - DEBUG - utils:96 -  Entering history()
+2025-05-18 09:02:13,458 - yfinance - DEBUG - history:165 - SPGI: Yahoo GET parameters: {'range': '5y', 'interval': '1wk', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2025-05-18 09:02:13,461 - yfinance - DEBUG - utils:96 -   Entering get()
+2025-05-18 09:02:13,464 - yfinance - DEBUG - utils:96 -    Entering _make_request()
+2025-05-18 09:02:13,465 - yfinance - DEBUG - data:375 - url=https://query2.finance.yahoo.com/v8/finance/chart/SPGI
+2025-05-18 09:02:13,466 - yfinance - DEBUG - data:376 - params={'range': '5y', 'interval': '1wk', 'includePrePost': False, 'events': 'div,splits,capitalGains'}
+2025-05-18 09:02:13,468 - yfinance - DEBUG - utils:96 -     Entering _get_cookie_and_crumb()
+2025-05-18 09:02:13,469 - yfinance - DEBUG - data:341 - cookie_mode = 'basic'
+2025-05-18 09:02:13,471 - yfinance - DEBUG - utils:96 -      Entering _get_cookie_and_crumb_basic()
+2025-05-18 09:02:13,472 - yfinance - DEBUG - utils:96 -       Entering _get_cookie_basic()
+2025-05-18 09:02:13,473 - yfinance - DEBUG - data:187 - reusing cookie
+2025-05-18 09:02:13,481 - yfinance - DEBUG - utils:101 -       Exiting _get_cookie_basic()
+2025-05-18 09:02:13,483 - yfinance - DEBUG - utils:96 -       Entering _get_crumb_basic()
+2025-05-18 09:02:13,490 - yfinance - DEBUG - data:209 - reusing crumb
+2025-05-18 09:02:13,494 - yfinance - DEBUG - utils:101 -       Exiting _get_crumb_basic()
+2025-05-18 09:02:13,497 - yfinance - DEBUG - utils:101 -      Exiting _get_cookie_and_crumb_basic()
+2025-05-18 09:02:13,509 - yfinance - DEBUG - utils:101 -     Exiting _get_cookie_and_crumb()
+2025-05-18 09:02:14,331 - yfinance - DEBUG - data:399 - response code=200
+2025-05-18 09:02:14,334 - yfinance - DEBUG - utils:101 -    Exiting _make_request()
+2025-05-18 09:02:14,335 - yfinance - DEBUG - utils:101 -   Exiting get()
+2025-05-18 09:02:14,344 - yfinance - DEBUG - history:281 - SPGI: yfinance received OHLC data: 2020-05-18 04:00:00 -> 2025-05-16 20:00:02
+2025-05-18 09:02:14,351 - yfinance - DEBUG - history:318 - SPGI: OHLC after cleaning: 2020-05-18 00:00:00-04:00 -> 2025-05-16 16:00:02-04:00
+2025-05-18 09:02:14,442 - yfinance - DEBUG - history:388 - SPGI: OHLC after combining events: 2020-05-18 00:00:00-04:00 -> 2025-05-16 00:00:00-04:00
+2025-05-18 09:02:14,583 - yfinance - DEBUG - history:467 - SPGI: yfinance returning OHLC: 2020-05-18 00:00:00-04:00 -> 2025-05-12 00:00:00-04:00
+2025-05-18 09:02:14,588 - yfinance - DEBUG - utils:101 -  Exiting history()
+2025-05-18 09:02:14,596 - yfinance - DEBUG - utils:101 - Exiting history()
+2025-05-18 09:02:14,678 - modules.routes.home - INFO - home:302 - Stored price data for SPGI, period 5y, interval 1wk in session cache (key: price_data_cache_SPGI_5y_1wk).
+2025-05-18 09:02:14,968 - modules.chart_creator - INFO - chart_creator:172 - Candlestick chart created for SPGI
+2025-05-18 09:02:15,167 - modules.routes.home - DEBUG - home:317 - Returning chart data for SPGI, interval 1wk: {'data': (Candlestick({
+    'close': array([299.03393555, 311.65270996, 320.34759521, ..., 506.61999512,
+                    507.73001099, 522.46002197]),
+    'decreasing': {'fillcolor': '#E74C3C', 'l...
+2025-05-18 09:02:15,345 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [18/May/2025 09:02:15] "POST /update_chart_interval HTTP/1.1" 200 -
