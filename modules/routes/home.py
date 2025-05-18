@@ -124,7 +124,7 @@ def route_set_ticker():
     logger.info(f"set_ticker called for ticker input: '{ticker}'")
 
     if not ticker:
-        flash("לא הוזן טיקר.", "warning")
+        logger.warning("לא הוזן טיקר בעת קריאה ל-set_ticker.")
         return redirect(url_for('home.route_home'))
 
     # Clear previous ticker's price data from session
@@ -133,27 +133,17 @@ def route_set_ticker():
         for key in keys_to_delete:
             session.pop(key, None)
             logger.info(f"Cleared old price cache from session: {key}")
-    # Also clear any generic cache not tied to the old ticker but might be there from previous logic
-    # This is a more aggressive clear, adjust if specific cache keys are known and different
-    # For now, just clearing based on the old ticker prefix is safer.
-    # Example of clearing all price data cache, regardless of old ticker (if needed, but riskier)
-    # all_price_cache_keys = [key for key in session.keys() if key.startswith(PRICE_DATA_CACHE_PREFIX)]
-    # for key in all_price_cache_keys:
-    #     session.pop(key, None)
-    # logger.info(f"Cleared ALL price data cache entries from session.")
-
 
     session['current_ticker'] = ticker
     logger.info(f"Ticker '{ticker}' set in session.")
-    flash(f"מעבד נתונים עבור {ticker}...", "info")
+    logger.info(f"מעבד נתונים עבור {ticker}...")
 
     try:
         config_loader = ConfigLoader()
         api_key_cfg, data_dir_cfg = ensure_simfin_configured(config_loader_instance=config_loader)
 
         if not data_dir_cfg:
-            flash(f"שגיאה קריטית: תיקיית הנתונים של SimFin אינה מוגדרת כראוי. לא ניתן להוריד דוחות כספיים.", "danger")
-            logger.error(f"SimFin data directory not configured for ticker {ticker} in set_ticker. Aborting.")
+            logger.error(f"שגיאה קריטית: תיקיית הנתונים של SimFin אינה מוגדרת כראוי עבור טיקר {ticker} ב-set_ticker. לא ניתן להוריד דוחות כספיים.")
             return redirect(url_for('home.route_home'))
 
         download_results = download_financial_statements(ticker_symbol=ticker)
@@ -177,19 +167,16 @@ def route_set_ticker():
                     any_data_processed_successfully = True
         
         if any_data_processed_successfully or any("Saved" in str(status_msg) for status_msg in save_status.values()):
-            flash(f"הנתונים עבור {ticker} עובדו בהצלחה.", "success")
+            logger.info(f"הנתונים הפיננסיים עבור {ticker} עובדו ונשמרו בהצלחה.")
         else:
             first_error = next((str(msg) for msg in save_status.values() if "Error" in str(msg) or "Failed" in str(msg) or "NoDataFound" in str(msg)),
                                next((str(val.get('Details', 'Unknown download error')) for val in download_results.values() if isinstance(val, dict) and "Error" in val), None))
             if first_error:
-                 flash(f"עיבוד נתונים עבור {ticker} נכשל. שגיאה עיקרית: {first_error}", "danger")
-                 logger.error(f"Data processing failed for {ticker}. Main error: {first_error}")
+                logger.error(f"עיבוד הנתונים הפיננסיים עבור {ticker} נכשל. שגיאה עיקרית: {first_error}")
             else:
-                flash(f"עיבוד נתונים עבור {ticker} נכשל או שלא נמצאו נתונים (אין הודעת שגיאה ספציפית).", "danger")
-                logger.warning(f"Data processing failed for {ticker} with no specific error message.")
+                logger.warning(f"עיבוד הנתונים הפיננסיים עבור {ticker} נכשל או שלא נמצאו נתונים (אין הודעת שגיאה ספציפית). Mozambiqueב-save_status: {save_status}, download_results: {download_results}")
     except Exception as e:
-        flash(f"שגיאה כללית בעת עיבוד הנתונים עבור {ticker}: {str(e)}", "danger")
-        logger.error(f"Generic error processing data for ticker {ticker}: {e}", exc_info=True)
+        logger.error(f"שגיאה כללית בעת עיבוד הנתונים עבור {ticker}: {e}", exc_info=True)
 
     return redirect(url_for('home.route_home'))
 
@@ -202,8 +189,7 @@ def route_update_api_key_action():
 
     try:
         if not api_key_file_path:
-            flash("שגיאת תצורה: נתיב קובץ מפתח API אינו מוגדר.", "danger")
-            logger.error("API key file path is not configured in ConfigLoader for update action.")
+            logger.error("API key file path is not configured in ConfigLoader for update action (update_api_key_action).")
             return redirect(request.referrer or url_for('home.route_home'))
 
         key_file_dir = os.path.dirname(api_key_file_path)
@@ -212,38 +198,28 @@ def route_update_api_key_action():
             logger.info(f"Created directory for API key file: {key_file_dir}")
 
         target_api_key_to_set = 'free'
-        flash_message = ""
-        flash_category = "info"
 
         if new_api_key_input:
             with open(api_key_file_path, 'w') as f:
                 f.write(new_api_key_input)
             target_api_key_to_set = new_api_key_input
-            flash_message = 'מפתח API עודכן בהצלחה!'
-            flash_category = 'success'
             logger.info(f"API key updated successfully to file '{api_key_file_path}'.")
         else:
             if os.path.exists(api_key_file_path):
                 try:
                     os.remove(api_key_file_path)
-                    flash_message = 'מפתח API נמחק. האפליקציה תשתמש כעת בנתוני "free".'
-                    logger.info(f"API key file '{api_key_file_path}' removed.")
+                    logger.info(f"API key file '{api_key_file_path}' removed. Application will use 'free' data.")
                 except OSError as e:
                     logger.warning(f"Could not remove API key file '{api_key_file_path}': {e}")
-                    flash_message = 'שגיאה במחיקת קובץ מפתח API קיים, אך האפליקציה תשתמש בנתוני "free".'
-                    flash_category = 'warning'
+                    logger.warning(f"Error removing existing API key file, but application will use 'free' data.")
             else:
-                flash_message = 'לא היה מפתח API מותאם אישית, האפליקציה ממשיכה להשתמש בנתוני "free".'
-            logger.info("SimFin API key set to 'free' after clearing/no input.")
+                logger.info("No custom API key was set. Application continues to use 'free' data.")
         
         ensure_simfin_configured(api_key_val=target_api_key_to_set, config_loader_instance=config_loader)
-        flash(flash_message, flash_category)
 
     except IOError as e:
-        flash(f"שגיאת קלט/פלט בעדכון מפתח API: {e}. אנא בדוק הרשאות קבצים.", 'danger')
         logger.error(f"IOError updating API key to file '{api_key_file_path}': {e}", exc_info=True)
     except Exception as e:
-        flash(f"שגיאה כללית בעדכון מפתח API: {e}.", 'danger')
         logger.error(f"Generic error updating API key: {e}", exc_info=True)
 
     return redirect(request.referrer or url_for('home.route_home'))
