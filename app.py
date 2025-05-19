@@ -4,6 +4,7 @@ SimFin Analyzer - Main Application Entry Point
 import os
 import logging
 from flask import Flask
+from logging.handlers import RotatingFileHandler
 
 # Import route blueprints
 from modules.routes import home_bp, graphs_bp, valuations_bp
@@ -14,14 +15,43 @@ from utils.config_loader import ConfigLoader
 
 def create_app():
     """Create and configure the Flask application."""
+    # Configure basic console logging and level for the root logger
     logging.basicConfig(
-        filename='app.log',
-        level=logging.INFO, # Default log level for file
+        level=logging.DEBUG,
         format='%(asctime)s - %(name)s - %(levelname)s - %(module)s:%(lineno)d - %(message)s'
     )
-    logger = logging.getLogger(__name__)
+
+    # Get the root logger to add the rotating file handler
+    root_logger = logging.getLogger()
+
+    # Setup RotatingFileHandler
+    log_file_path = 'app.log'
+    # Rotate log file if it reaches 5MB, keep 5 backup files. UTF-8 encoding is specified.
+    rotating_file_handler = RotatingFileHandler(
+        log_file_path, maxBytes=5*1024*1024, backupCount=5, encoding='utf-8'
+    )
+    rotating_file_handler.setLevel(logging.DEBUG) # Changed from INFO to DEBUG for diagnostics
+    
+    # Define a formatter for the file logs (can be same or different from console)
+    file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(module)s:%(lineno)d - %(message)s')
+    rotating_file_handler.setFormatter(file_formatter)
+    
+    # Add the rotating file handler to the root logger
+    root_logger.addHandler(rotating_file_handler)
+
+    logger = logging.getLogger(__name__) # This specific logger will use the root's handlers
 
     app = Flask(__name__, instance_relative_config=False)
+
+    # Configuration for price history
+    app.config['PRICE_DATA_DOWNLOAD_PERIOD'] = "2y"  # General default, or could be removed if specific ones below are always used
+    app.config['PRICE_DATA_DISPLAY_YEARS'] = 1     # Number of years to display by default (primarily for daily)
+    
+    # Interval-specific download periods
+    app.config['PRICE_DATA_DOWNLOAD_PERIOD_DAILY'] = "2y"
+    app.config['PRICE_DATA_DOWNLOAD_PERIOD_WEEKLY'] = "5y"
+    app.config['PRICE_DATA_DOWNLOAD_PERIOD_MONTHLY'] = "10y"
+
     logger.info("Flask application '%s' created.", app.name)
 
     config_ini_loader = None
@@ -102,9 +132,6 @@ def create_app():
     return app
 
 if __name__ == '__main__':
-    if not logging.getLogger().hasHandlers():
-        logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
     logger = logging.getLogger(__name__)
     try:
         simfin_app = create_app()

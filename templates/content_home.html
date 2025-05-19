@@ -1,46 +1,167 @@
 {% if current_ticker %}
-    <h4 class="mt-4">גרף נרות יומי עבור {{ current_ticker }} (שנה אחרונה)</h4>
+    {# כותרת נפרדת פחות נחוצה אם הכותרת בגרף מספיקה #}
+    {# <h4 class="mt-4 text-center">גרף נרות יומי עבור {{ current_ticker }}</h4> #}
+
     {% if price_data_error %}
-        <div class="alert alert-warning">{{ price_data_error }}</div>
+        <div class="alert alert-warning mt-3">{{ price_data_error }}</div>
     {% elif candlestick_chart_json %}
-        <div class="row">
-            <div class="col-md-12">
-                <div id="candlestickChartDiv"></div>
-            </div>
+        <div class="container-fluid mt-3">
+            {% if price_data_error %}
+                <div class="alert alert-danger" role="alert">
+                    שגיאה בטעינת נתוני מחיר: {{ price_data_error }}
+                </div>
+            {% endif %}
+
+            {% if current_ticker %}
+                {# New wrapper for custom fullscreen #}
+                <div id="chartAreaWrapper" style="position: relative; background-color: white;"> 
+                    {# Container for interval buttons and custom fullscreen button #}
+                    <div id="chartControls" class="mb-2 text-center" style="padding: 5px; background-color: #f8f9fa; border-radius: 5px;">
+                        <button id="toggleFullscreenBtn" class="btn btn-sm btn-outline-secondary mr-2">מסך מלא</button>
+                        <button id="updateChart_1d" class="btn btn-sm btn-primary interval-btn" data-interval="1d">יומי (2 שנים)</button>
+                        <button id="updateChart_1wk" class="btn btn-sm btn-info interval-btn" data-interval="1wk">שבועי (5 שנים)</button>
+                        <button id="updateChart_1mo" class="btn btn-sm btn-warning interval-btn" data-interval="1mo">חודשי (10 שנים)</button>
+                        <span id="chartLoadingStatus" class="ml-2" style="display: none;">טוען גרף...</span>
+                    </div>
+
+                    {# Div where the Plotly chart will be rendered #}
+                    <div id="candlestickChartDiv" style="width: 100%; height: 70vh;"></div> {# גובה התחלתי יחסי #}
+                </div>
+            {% else %}
+                <div class="alert alert-info" role="alert">
+                    אנא בחר טיקר להצגת נתונים.
+                </div>
+            {% endif %}
         </div>
-        <script type="text/javascript">
-            var candlestickData = {{ candlestick_chart_json | safe }};
-            if (candlestickData && candlestickData.data && candlestickData.layout) {
-                Plotly.newPlot('candlestickChartDiv', candlestickData.data, candlestickData.layout, {responsive: true});
-            } else if (candlestickData && candlestickData.error) {
-                document.getElementById('candlestickChartDiv').innerHTML = "<p class='text-danger'>" + candlestickData.error + "</p>";
-                console.error("Candlestick chart error:", candlestickData.error);
-            } else {
-                document.getElementById('candlestickChartDiv').innerHTML = "<p class='text-secondary'>גרף נרות לא זמין או אין נתונים.</p>";
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var currentTicker = "{{ current_ticker or '' }}";
+            var initialChartDataJson = {{ candlestick_chart_json|safe if candlestick_chart_json else 'null' }};
+            var chartDiv = document.getElementById('candlestickChartDiv');
+            var chartControlsDiv = document.getElementById('chartControls'); // Get the controls div
+            var chartAreaWrapper = document.getElementById('chartAreaWrapper'); // Wrapper for fullscreen
+            var toggleFullscreenBtn = document.getElementById('toggleFullscreenBtn');
+            var chartLoadingStatus = document.getElementById('chartLoadingStatus');
+
+            // Configuration for Plotly: hide the default fullscreen button
+            var plotlyConfig = {
+                responsive: true,
+                displaylogo: false,
+                modeBarButtonsToRemove: ['resetScale2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian', 'toggleSpikelines', 'sendDataToCloud', 'resetViews', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'drawclosedpath', 'drawopenpath', 'drawline', 'drawrect', 'drawcircle', 'eraseshape', 'zoom3d', 'pan3d', 'orbitRotation', 'tableRotation', 'resetCameraDefault3d', 'resetCameraLastSave3d', 'hoverClosest3d', 'hoverClosestGl2d', 'hoverClosestPie', 'toggleHover', 'resetViews', 'toImage'] // Keep 'resetScale2d', remove others as needed. Crucially, 'resetViews' or the fullscreen button itself if its specific name is known. The default list is quite extensive to ensure it's gone.
+            };
+
+            if (initialChartDataJson && chartDiv) {
+                try {
+                    Plotly.newPlot('candlestickChartDiv', initialChartDataJson.data, initialChartDataJson.layout, plotlyConfig);
+                } catch (e) {
+                    console.error("Error rendering initial chart:", e);
+                    chartDiv.innerHTML = "<div class='alert alert-warning'>שגיאה בהצגת הגרף הראשוני.</div>";
+                }
+            } else if (currentTicker && chartDiv) {
+                // chartDiv.innerHTML = "<div class='alert alert-info'>טוען גרף...</div>"; // This might be shown if no error but also no initial data.
             }
+
+            document.querySelectorAll('.interval-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    var interval = this.dataset.interval;
+                    if (!currentTicker) {
+                        alert("יש לבחור טיקר תחילה.");
+                        return;
+                    }
+                    
+                    chartLoadingStatus.style.display = 'inline'; // Show loading status
+                    // Visually disable buttons
+                    document.querySelectorAll('.interval-btn').forEach(btn => btn.disabled = true);
+
+                    fetch("{{ url_for('home.route_update_chart_interval') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ ticker: currentTicker, interval: interval })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(err => {throw new Error(err.error || 'Network response was not ok: ' + response.statusText)});
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.error) {
+                            alert('שגיאה בעדכון הגרף: ' + data.error);
+                            chartDiv.innerHTML = "<div class='alert alert-warning'>שגיאה בעדכון הגרף: " + data.error + "</div>";
+                        } else if (data.data && data.layout && chartDiv) {
+                            Plotly.react('candlestickChartDiv', data.data, data.layout, plotlyConfig); // Use react for updates
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating chart:', error);
+                        alert('שגיאה חמורה בעדכון הגרף: ' + error.message);
+                        chartDiv.innerHTML = "<div class='alert alert-danger'>שגיאה חמורה בעדכון הגרף. בדוק את הלוגים.</div>";
+                    })
+                    .finally(() => {
+                        chartLoadingStatus.style.display = 'none'; // Hide loading status
+                        // Re-enable buttons
+                        document.querySelectorAll('.interval-btn').forEach(btn => btn.disabled = false);
+                    });
+                });
+            });
+
+            // Custom Fullscreen Logic
+            if (toggleFullscreenBtn && chartAreaWrapper && chartDiv) {
+                toggleFullscreenBtn.addEventListener('click', function() {
+                    if (!document.fullscreenElement) {
+                        chartAreaWrapper.requestFullscreen().catch(err => {
+                            alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                        });
+                    } else {
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                    }
+                });
+
+                document.addEventListener('fullscreenchange', function() {
+                    // Delay resize slightly to allow DOM to settle after fullscreen change
+                    setTimeout(function() {
+                        if (chartDiv) {
+                            Plotly.Plots.resize(chartDiv);
+                        }
+                    }, 100); // 100ms delay, adjust if needed
+
+                    // Adjust button text
+                    if (document.fullscreenElement) {
+                        toggleFullscreenBtn.textContent = 'צא ממסך מלא';
+                        // Optionally, add a class to the wrapper for specific fullscreen styling
+                        chartAreaWrapper.classList.add('simfin-fullscreen-active');
+                         if (chartControlsDiv) chartControlsDiv.style.zIndex = '1050'; // Ensure controls are above chart in fullscreen
+
+                    } else {
+                        toggleFullscreenBtn.textContent = 'מסך מלא';
+                        chartAreaWrapper.classList.remove('simfin-fullscreen-active');
+                         if (chartControlsDiv) chartControlsDiv.style.zIndex = 'auto';
+
+                    }
+                });
+            }
+        });
         </script>
     {% else %}
-        <p>טוען גרף נרות...</p>
+        {% if not current_ticker %}
+            <p class="mt-4 text-center">אנא בחר טיקר כדי להציג גרף.</p>
+        {% else %}
+            <p class="mt-4 text-center">טוען גרף נרות...</p> {# Placeholder while data loads #}
+        {% endif %}
     {% endif %}
-    <hr>
-{% endif %}
 
-<p {% if current_ticker %}class="mt-4"{% endif %}>ברוכים הבאים למנתח הנתונים הפיננסיים.</p>
-<p>אנא הזן סימול טיקר בשדה בחלק העליון של הדף ולחץ על "בחר מניה והורד נתונים" כדי להתחיל.</p>
-<p>לאחר בחירת מניה, תוכל לנווט באמצעות התפריט בצד כדי לצפות בגרפים או לבצע פעולות נוספות.</p>
+    {# הסרת בלוק סטטוס הורדת דוחות SimFin אם הוא נכתב רק ללוג #}
+    {# {% if session.get('data_download_status') %} ... {% endif %} #}
 
-{% if session.get('data_download_status') %}
-    <h4 class="mt-4">סטטוס הורדת דוחות SimFin אחרונה (עבור {{ session.get('current_ticker', 'לא נבחר טיקר') }}):</h4>
-    <ul class="list-group">
-        {% for key, status in session.get('data_download_status', {}).items() %}
-            <li class="list-group-item 
-                {% if 'Error' in status or 'Failed' in status or 'unexpected format' in status %}list-group-item-danger
-                {% elif 'NoDataFound' in status or 'empty' in status %}list-group-item-warning
-                {% elif 'Saved' in status %}list-group-item-success
-                {% else %}list-group-item-light
-                {% endif %}">
-                <strong>{{ key.replace('_', ' ') | title }}:</strong> {{ status }}
-            </li>
-        {% endfor %}
-    </ul>
+    {# הסרת טקסט קבלת פנים אם רוצים דף נקי יותר #}
+    {# <p {% if current_ticker %}class="mt-4"{% endif %}>ברוכים הבאים...</p> #}
+
+{% else %}
+    {# אם אין current_ticker כלל (בטעינה ראשונית) #}
+    <p class="mt-4 text-center">אנא הזן סימול טיקר בשדה בחלק העליון של הדף ולחץ על "בחר מניה והורד נתונים" כדי להתחיל.</p>
 {% endif %}

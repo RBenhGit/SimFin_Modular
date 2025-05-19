@@ -21,3 +21,10 @@ Data/
 
 # Ignore Flask secret key
 secret.py
+
+
+# Ignore the Word documentations
+Documentation/
+
+# Ignore the log files
+app.log
