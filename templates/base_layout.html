@@ -153,6 +153,14 @@
                 <input type="text" class="form-control form-control-sm" id="ticker_input" name="ticker_input" placeholder="טיקר (לדוגמה: AAPL)" value="{{ current_ticker if current_ticker }}">
             </div>
             <button type="submit" class="btn btn-success btn-sm mb-2 mb-sm-0">בחר מניה והורד נתונים</button>
+            {% if current_ticker and session.get('company_name') %}
+                <span class="ml-3 text-dark">
+                    <strong>{{ current_ticker }}</strong> - {{ session.get('company_name') }}
+                    {% if session.get('company_sector') %}
+                        <small class="text-muted">({{ session.get('company_sector') }})</small>
+                    {% endif %}
+                </span>
+            {% endif %}
         </form>
     </div>
 

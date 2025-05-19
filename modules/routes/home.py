@@ -9,7 +9,7 @@ import logging
 from flask import render_template, request, url_for, redirect, flash, session, current_app, jsonify
 from . import home_bp
 
-from modules.data_loader import ensure_simfin_configured
+from modules.data_loader import ensure_simfin_configured, get_company_info, get_company_name_yf
 from modules.financial_statements import download_financial_statements, save_financial_statements
 from modules.price_history import download_price_history_with_mavg
 from modules.chart_creator import create_candlestick_chart_with_mavg
@@ -29,6 +29,7 @@ def route_home():
     chart_json = None
     price_error = None
     logger.info(f"Home route accessed. Current ticker in session: '{current_ticker}'")
+    logger.info(f"Session company info - name: '{session.get('company_name')}', sector: '{session.get('company_sector')}'")
 
     if current_ticker:
         try:
@@ -112,7 +113,7 @@ def route_home():
             price_error = f"שגיאה כללית בעיבוד נתוני מחיר עבור {current_ticker}."
 
     return render_template('base_layout.html',
-                           page_title='ניתוח מניות - דף הבית',
+                           page_title=f'ניתוח מניות - דף הבית' + (f' - {session.get("company_name")} ({current_ticker})' if current_ticker and session.get('company_name') else f' - {current_ticker}' if current_ticker else ''),
                            content_template='content_home.html',
                            current_ticker=current_ticker,
                            candlestick_chart_json=chart_json,
@@ -146,17 +147,43 @@ def route_set_ticker():
             logger.error(f"שגיאה קריטית: תיקיית הנתונים של SimFin אינה מוגדרת כראוי עבור טיקר {ticker} ב-set_ticker. לא ניתן להוריד דוחות כספיים.")
             return redirect(url_for('home.route_home'))
 
-        download_results = download_financial_statements(ticker_symbol=ticker)
+        # Get company info
+        company_info = get_company_info(ticker)
+        logger.info(f"Company info result for {ticker}: {company_info}")
+        
+        if isinstance(company_info, dict) and 'name' in company_info and company_info['name']:
+            session['company_name'] = company_info['name']
+            session['company_sector'] = company_info.get('sector')
+            session['company_industry'] = company_info.get('industry')
+            logger.info(f"Company info loaded for {ticker}: {company_info['name']}")
+            logger.info(f"Session after setting company info - name: '{session.get('company_name')}', sector: '{session.get('company_sector')}'")
+        else:
+            # נסה להביא את שם החברה מ-yfinance
+            yf_name = get_company_name_yf(ticker)
+            if yf_name:
+                session['company_name'] = yf_name
+                session['company_sector'] = None
+                session['company_industry'] = None
+                logger.info(f"Company name loaded from yfinance for {ticker}: {yf_name}")
+            else:
+                session.pop('company_name', None)
+                session.pop('company_sector', None)
+                session.pop('company_industry', None)
+                logger.warning(f"Could not load company info for {ticker}: {company_info.get('Details', 'Unknown error')}")
 
+        # Clear previous financial statement data and download status
         for stmt_key_clear in STATEMENTS_TO_MANAGE_IN_SESSION:
             for variant_clear in VARIANTS_TO_MANAGE:
                 session.pop(f'{stmt_key_clear}_{variant_clear}_df_json', None)
         session.pop('data_download_status', None)
         logger.info(f"Cleared previous financial statement data and download status from session for ticker {ticker}.")
 
+        # Download and save financial statements
+        download_results = download_financial_statements(ticker_symbol=ticker)
         save_status = save_financial_statements(download_results, ticker)
         session['data_download_status'] = save_status
 
+        # Store financial statements in session
         any_data_processed_successfully = False
         for stmt_key_session in STATEMENTS_TO_MANAGE_IN_SESSION:
             for variant_session in VARIANTS_TO_MANAGE:
