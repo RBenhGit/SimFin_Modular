@@ -79,7 +79,7 @@ def route_graphs_annual(current_ticker):
         _prepare_financial_charts(current_ticker, 'annual', session)
 
     return render_template('base_layout.html',
-                           page_title=f'גרפים שנתיים - {current_ticker}',
+                           page_title=f'גרפים שנתיים' + (f' - {session.get("company_name")} ({current_ticker})' if current_ticker and session.get('company_name') else f' - {current_ticker}' if current_ticker else ''),
                            content_template='content_graphs.html',
                            graph_type='Annual',
                            current_ticker=current_ticker,
@@ -96,7 +96,7 @@ def route_graphs_quarterly(current_ticker):
         _prepare_financial_charts(current_ticker, 'quarterly', session)
 
     return render_template('base_layout.html',
-                           page_title=f'גרפים רבעוניים - {current_ticker}',
+                           page_title=f'גרפים רבעוניים' + (f' - {session.get("company_name")} ({current_ticker})' if current_ticker and session.get('company_name') else f' - {current_ticker}' if current_ticker else ''),
                            content_template='content_graphs.html',
                            graph_type='Quarterly',
                            current_ticker=current_ticker,

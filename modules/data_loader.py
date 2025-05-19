@@ -3,6 +3,7 @@ import os
 import logging
 import simfin as sf
 from utils.config_loader import ConfigLoader
+import yfinance as yf
 
 logger = logging.getLogger(__name__)
 
@@ -99,3 +100,71 @@ def get_api_key_status_for_display(config_loader_instance=None):
         return f"משתמש במפתח 'free' (קובץ '{os.path.basename(api_key_file_path)}' ריק או מכיל 'free')"
     else:
         return f"מפתח API מותאם אישית נטען מהקובץ '{os.path.basename(api_key_file_path)}'"
+
+def get_company_info(ticker_symbol, market='us'):
+    """
+    Get company information from SimFin.
+    
+    Args:
+        ticker_symbol (str): The stock ticker.
+        market (str): The market (e.g., 'us').
+        
+    Returns:
+        dict: Dictionary containing company information or error details.
+    """
+    try:
+        logger.info(f"Loading company info for ticker {ticker_symbol} from SimFin...")
+        # Load company info from SimFin
+        df_companies = sf.load_companies(market=market)
+        
+        if df_companies is not None and not df_companies.empty:
+            logger.info(f"Successfully loaded companies data. Shape: {df_companies.shape}")
+            logger.info(f"Companies data columns: {df_companies.columns.tolist()}")
+            logger.info(f"First few rows of companies data:\n{df_companies.head()}")
+            
+            # Try to find the company by ticker - handle both possible column names
+            ticker_col = 'Ticker' if 'Ticker' in df_companies.columns else 'Symbol'
+            logger.info(f"Using column '{ticker_col}' for ticker lookup")
+            
+            company_info = df_companies[df_companies[ticker_col] == ticker_symbol.upper()]
+            logger.info(f"Found {len(company_info)} matching companies for ticker {ticker_symbol}")
+            
+            if not company_info.empty:
+                name_col = 'Company Name' if 'Company Name' in company_info.columns else 'Name'
+                logger.info(f"Using column '{name_col}' for company name")
+                logger.info(f"Company info row:\n{company_info.iloc[0]}")
+                
+                result = {
+                    'name': company_info[name_col].iloc[0],
+                    'sector': company_info['Sector'].iloc[0] if 'Sector' in company_info.columns else None,
+                    'industry': company_info['Industry'].iloc[0] if 'Industry' in company_info.columns else None
+                }
+                logger.info(f"Found company info for {ticker_symbol}: {result}")
+                return result
+            else:
+                logger.warning(f"No company found with ticker {ticker_symbol}")
+                return {"Error": "CompanyNotFound", "Details": f"No company information found for {ticker_symbol}"}
+        else:
+            logger.error("Failed to load companies data from SimFin")
+            return {"Error": "LoadFailed", "Details": "Failed to load company information from SimFin"}
+            
+    except Exception as e:
+        logger.error(f"Error getting company info for {ticker_symbol}: {e}", exc_info=True)
+        return {"Error": "ProcessingException", "Details": str(e)}
+
+def get_company_name_yf(ticker_symbol):
+    """
+    Get company name from yfinance.
+    Args:
+        ticker_symbol (str): The stock ticker.
+    Returns:
+        str or None: Company name if found, else None.
+    """
+    try:
+        ticker = yf.Ticker(ticker_symbol)
+        info = ticker.info
+        name = info.get('shortName') or info.get('longName') or info.get('name')
+        return name
+    except Exception as e:
+        logger.error(f"Error getting company name from yfinance for {ticker_symbol}: {e}")
+        return None

@@ -23,6 +23,6 @@ def route_valuations(current_ticker):
     #     return redirect(url_for('home.route_home'))
 
     return render_template('base_layout.html',
-                           page_title=f'הערכות שווי - {current_ticker}',
+                           page_title=f'הערכות שווי' + (f' - {session.get("company_name")} ({current_ticker})' if current_ticker and session.get('company_name') else f' - {current_ticker}' if current_ticker else ''),
                            content_template='content_valuations.html',
                            current_ticker=current_ticker)
